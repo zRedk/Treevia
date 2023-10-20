@@ -16,6 +16,8 @@
 		C00092B42ADED00800340A86 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00092B32ADED00800340A86 /* Preview Assets.xcassets */; };
 		C00DD7472ADFCC8900EDBC9E /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00DD7462ADFCC8900EDBC9E /* Answer.swift */; };
 		C05E81A82ADF0EF0008EC0F4 /* TriviaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05E81A72ADF0EF0008EC0F4 /* TriviaView.swift */; };
+		C09ACE922AE2BEA100F62B89 /* Leaf.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09ACE912AE2BEA100F62B89 /* Leaf.swift */; };
+		C09ACE942AE2BEAF00F62B89 /* LeafesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09ACE932AE2BEAF00F62B89 /* LeafesView.swift */; };
 		ECD17A6F2AE2B7D30034527B /* TriviaAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD17A6E2AE2B7D30034527B /* TriviaAnswer.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,8 @@
 		C00092B32ADED00800340A86 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C00DD7462ADFCC8900EDBC9E /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		C05E81A72ADF0EF0008EC0F4 /* TriviaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaView.swift; sourceTree = "<group>"; };
+		C09ACE912AE2BEA100F62B89 /* Leaf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leaf.swift; sourceTree = "<group>"; };
+		C09ACE932AE2BEAF00F62B89 /* LeafesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeafesView.swift; sourceTree = "<group>"; };
 		ECD17A6E2AE2B7D30034527B /* TriviaAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaAnswer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +68,8 @@
 		8E4CBC4B2AE0771100C68274 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C09ACE932AE2BEAF00F62B89 /* LeafesView.swift */,
+				C09ACE912AE2BEA100F62B89 /* Leaf.swift */,
 				C00DD7462ADFCC8900EDBC9E /* Answer.swift */,
 				8E4CBC4E2AE11E8900C68274 /* Question.swift */,
 				8E4CBC502AE1225200C68274 /* GameStats.swift */,
@@ -179,9 +185,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C09ACE922AE2BEA100F62B89 /* Leaf.swift in Sources */,
 				C00092AF2ADED00800340A86 /* ContentView.swift in Sources */,
 				C00DD7472ADFCC8900EDBC9E /* Answer.swift in Sources */,
 				C05E81A82ADF0EF0008EC0F4 /* TriviaView.swift in Sources */,
+				C09ACE942AE2BEAF00F62B89 /* LeafesView.swift in Sources */,
 				8E4CBC512AE1225200C68274 /* GameStats.swift in Sources */,
 				ECD17A6F2AE2B7D30034527B /* TriviaAnswer.swift in Sources */,
 				C00092AD2ADED00800340A86 /* MyLittleTreeApp.swift in Sources */,
