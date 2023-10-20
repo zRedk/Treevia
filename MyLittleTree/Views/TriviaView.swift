@@ -14,6 +14,7 @@ struct TriviaView: View {
     @State  var questions: [Question]
     @State  var unusedQuestions: [Question]
     @State  var currentQuestion: Question?
+    var leavesShow = LeavesView()
     @Environment(\.dismiss) var dismiss
     
     @State private var showingAlert = false
@@ -44,12 +45,12 @@ struct TriviaView: View {
                 
                 
                 Spacer()
-                Image(systemName: "leaf")
-                    .foregroundStyle(Color.heavyGreen)
-                Image(systemName: "leaf")
-                    .foregroundStyle(Color.heavyGreen)
-                Image(systemName: "leaf")
-                    .foregroundStyle(Color.heavyGreen)
+                ForEach(leavesShow.leaves){ leaf in
+                    HStack {
+                        Image(systemName: "leaf")
+                            .foregroundColor(.greenButton)
+                    }
+                }
                 
             }
             //.border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
@@ -120,7 +121,7 @@ struct TriviaView: View {
                 secondaryButton: .cancel()
             )
         }
-
+        
         
         //.border(.red)
     }
