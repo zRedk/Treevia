@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+class Quiz {
+    var questions = [Question(text: "Domanda1", Answers: [Answer( text: "Rispostina", isCorrect: true),Answer(text: "Sbagliatina"),Answer(text: "Sbagliatina"),Answer(text: "Sbagliatina")])
+    ]
+}

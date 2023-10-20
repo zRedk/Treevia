@@ -30,8 +30,11 @@ struct AnswerRow: View {
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .onTapGesture {
           //  isSelected = true
-            selectedAnswer = answer
+            if selectedAnswer == nil {
+                selectedAnswer = answer
+            }
         }
+        .allowsHitTesting(selectedAnswer == nil)
     }
 }
 

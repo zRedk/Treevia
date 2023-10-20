@@ -38,8 +38,8 @@ struct ContentView: View {
                     .background(.greenButton) //color that i took from the figma file and put into assets
                     .foregroundColor(.white)
                     .cornerRadius(230)
-                    .sheet(isPresented: self.$show_modal) {
-                        TriviaView()
+                    .fullScreenCover(isPresented: self.$show_modal) {
+                        TriviaView(questions: [Question(text: "Question1", Answers: [Answer(text: "Answer1"),Answer(text: "Answer2"),Answer(text: "Answer3"),Answer(text: "Answer4", isCorrect: true)])], unusedQuestions: [Question(text: "Question2", Answers: [Answer(text: "Answer1"),Answer(text: "Answer2"),Answer(text: "Answer3"),Answer(text: "Answer4", isCorrect: true)])])
                     }
 
                 }
