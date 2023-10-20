@@ -18,6 +18,8 @@
 		C05E81A82ADF0EF0008EC0F4 /* TriviaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05E81A72ADF0EF0008EC0F4 /* TriviaView.swift */; };
 		C09ACE922AE2BEA100F62B89 /* Leaf.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09ACE912AE2BEA100F62B89 /* Leaf.swift */; };
 		C09ACE942AE2BEAF00F62B89 /* LeafesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09ACE932AE2BEAF00F62B89 /* LeafesView.swift */; };
+		E70BCA462AE2BE880022F530 /* HoorayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BCA452AE2BE880022F530 /* HoorayView.swift */; };
+		E70BCA482AE2BEBF0022F530 /* OopsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BCA472AE2BEBF0022F530 /* OopsView.swift */; };
 		ECD17A6F2AE2B7D30034527B /* TriviaAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD17A6E2AE2B7D30034527B /* TriviaAnswer.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +36,8 @@
 		C05E81A72ADF0EF0008EC0F4 /* TriviaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaView.swift; sourceTree = "<group>"; };
 		C09ACE912AE2BEA100F62B89 /* Leaf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leaf.swift; sourceTree = "<group>"; };
 		C09ACE932AE2BEAF00F62B89 /* LeafesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeafesView.swift; sourceTree = "<group>"; };
+		E70BCA452AE2BE880022F530 /* HoorayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoorayView.swift; sourceTree = "<group>"; };
+		E70BCA472AE2BEBF0022F530 /* OopsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OopsView.swift; sourceTree = "<group>"; };
 		ECD17A6E2AE2B7D30034527B /* TriviaAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaAnswer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,6 +104,8 @@
 				8E4CBC462AE059D500C68274 /* Components */,
 				8E4CBC442AE058D900C68274 /* Views */,
 				C00092AC2ADED00800340A86 /* MyLittleTreeApp.swift */,
+				E70BCA452AE2BE880022F530 /* HoorayView.swift */,
+				E70BCA472AE2BEBF0022F530 /* OopsView.swift */,
 				ECD17A6E2AE2B7D30034527B /* TriviaAnswer.swift */,
 				C00092B02ADED00800340A86 /* Assets.xcassets */,
 				C00092B22ADED00800340A86 /* Preview Content */,
@@ -187,6 +193,7 @@
 			files = (
 				C09ACE922AE2BEA100F62B89 /* Leaf.swift in Sources */,
 				C00092AF2ADED00800340A86 /* ContentView.swift in Sources */,
+				E70BCA462AE2BE880022F530 /* HoorayView.swift in Sources */,
 				C00DD7472ADFCC8900EDBC9E /* Answer.swift in Sources */,
 				C05E81A82ADF0EF0008EC0F4 /* TriviaView.swift in Sources */,
 				C09ACE942AE2BEAF00F62B89 /* LeafesView.swift in Sources */,
@@ -195,6 +202,7 @@
 				C00092AD2ADED00800340A86 /* MyLittleTreeApp.swift in Sources */,
 				8E4CBC482AE059EB00C68274 /* AnswerRow.swift in Sources */,
 				8E4CBC4F2AE11E8900C68274 /* Question.swift in Sources */,
+				E70BCA482AE2BEBF0022F530 /* OopsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
