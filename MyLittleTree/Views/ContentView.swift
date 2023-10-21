@@ -35,11 +35,11 @@ struct ContentView: View {
                         self.show_modal = true
                     }
                     .padding(25.0)
-                    .background(.greenButton) //color that i took from the figma file and put into assets
+                    .background(.greenButton) 
                     .foregroundColor(.white)
                     .cornerRadius(230)
                     .fullScreenCover(isPresented: self.$show_modal) {
-                        TriviaView(questions: [Question(text: "Question1", Answers: [Answer(text: "Answer1"),Answer(text: "Answer2"),Answer(text: "Answer3"),Answer(text: "Answer4", isCorrect: true)])], unusedQuestions: [Question(text: "Question2", Answers: [Answer(text: "Answer1"),Answer(text: "Answer2"),Answer(text: "Answer3"),Answer(text: "Answer4", isCorrect: true)])])
+                        TriviaView()
                     }
 
                 }
