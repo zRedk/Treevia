@@ -12,7 +12,7 @@ struct TriviaView: View {
     
     @State private var selectedAnswer: Answer? = nil
     @State var currentQuestion: Question?
-    var leavesShow = LeavesView()
+    @ObservedObject var leavesShow: LeavesView
     @Environment(\.dismiss) var dismiss
     
     @State private var showingAlert = false
@@ -25,11 +25,26 @@ struct TriviaView: View {
             currentQuestion = nil
             return
         }
-        
+
+        if selectedAnswer == nil {
+            leavesShow.regenerateLeavesIfNeeded()
+        } else {
+            if let selectedAnswer = selectedAnswer, !selectedAnswer.isCorrect {
+                // User selected a wrong answer, hide a leaf
+                if let firstVisibleLeafIndex = leavesShow.leaves.firstIndex(where: { $0.show }) {
+                    leavesShow.leaves[firstVisibleLeafIndex].show = false
+                }
+            }
+            selectedAnswer = nil
+        }
+
         currentQuestion = nq
-        selectedAnswer = nil
+
+        if gameStage > 5 || leavesShow.leaves.filter({ $0.show }).isEmpty {
+            self.dismiss()
+        }
     }
-    
+
     var body: some View {
         NavigationStack {
             
@@ -38,13 +53,10 @@ struct TriviaView: View {
                     Text("\(gameStage) of 5").foregroundStyle(Color.heavyGreen)
                     
                     Spacer()
-                    ForEach(leavesShow.leaves){ leaf in
-                        HStack {
-                            Image(systemName: "leaf")
-                                .foregroundColor(.greenButton)
-                        }
+                    ForEach(leavesShow.leaves) { leaf in
+                        Image(systemName: leaf.show ? "leaf.fill" : "leaf")
+                            .foregroundColor(.greenButton)
                     }
-                    
                 }
                 .padding()
                 
@@ -90,13 +102,14 @@ struct TriviaView: View {
                     Button(action: {
                         showingAlert = true
                     }) {
-                        Text("Exit")
+                        Image(systemName: "chevron.down")
                     }
                     .foregroundColor(Color.heavyGreen)
                 })
             }
         }
-        .onAppear{
+        .onAppear {
+            leavesShow.regenerateLeavesIfNeeded()
             nextQuestion()
         }
         .alert(isPresented: $showingAlert) {
@@ -126,6 +139,5 @@ struct TriviaView: View {
 }
 
 #Preview {
-    TriviaView()
+    TriviaView(leavesShow: LeavesView(leaves: [Leaf(show: true), Leaf(show: true), Leaf(show: true)], lastRegenerationTime: Date()))
 }
-

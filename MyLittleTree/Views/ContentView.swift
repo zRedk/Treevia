@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var show_modal: Bool = false
-    
+    @State private var show_modal: Bool = false //Modal var
+    @ObservedObject private var leavesShow = LeavesView(leaves: [Leaf(show: true), Leaf(show: true), Leaf(show: true)], lastRegenerationTime: Date())
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -39,9 +40,8 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .cornerRadius(230)
                     .fullScreenCover(isPresented: self.$show_modal) {
-                        TriviaView()
+                        TriviaView(leavesShow: leavesShow)
                     }
-
                 }
                 .padding(.bottom, 50.0)
             }
