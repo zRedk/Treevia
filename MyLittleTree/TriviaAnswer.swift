@@ -36,5 +36,5 @@ var hcQuestions = [
             Answer(text: "Rispostina", isCorrect: true),
             Answer(text: "Sbagliatina"),
             Answer(text: "Sbagliatina"),
-            Answer(text: "Sbagliatina")])
+            Answer(text: "Sbagliatina")]),
 ]

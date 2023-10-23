@@ -7,12 +7,25 @@
 
 import Foundation
 
-class LifeLeaf {
-    var Leaves: [Leaf] = [
-        Leaf(),
-        Leaf(),
-        Leaf()
-    ]
+class LeavesView: ObservableObject {
+    @Published var leaves: [Leaf]
+    @Published var lastRegenerationTime: Date
+
+    init(leaves: [Leaf], lastRegenerationTime: Date) {
+        self.leaves = leaves
+        self.lastRegenerationTime = lastRegenerationTime
+    }
+
+    func regenerateLeavesIfNeeded() {
+        let now = Date()
+        let calendar = Calendar.current
+        if calendar.dateComponents([.hour], from: lastRegenerationTime, to: now).minute ?? 0 >= 5 {
+            // Regenerate the leaves (create a new array of leaves)
+            let newLeaves = [Leaf(), Leaf(), Leaf()]
+            self.leaves = newLeaves
+            self.lastRegenerationTime = now
+        }
+    }
 }
 
 struct Leaf: Identifiable {
