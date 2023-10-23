@@ -33,14 +33,7 @@ struct HoorayView: View {
                     .font(.system(size: 35))
                     .padding()
                     .multilineTextAlignment(.center)
-                
-                    
-                    
-                
-                
             }
-            
-            
         }
     }
 }
