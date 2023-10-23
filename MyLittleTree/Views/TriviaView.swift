@@ -12,8 +12,16 @@ struct TriviaView: View {
     
     @State private var selectedAnswer: Answer? = nil
     @State var currentQuestion: Question?
-    var leavesShow = LeavesView()
     @Environment(\.dismiss) var dismiss
+    
+    //here i'm creating the state var for the timer set to 60 and running set to false
+        @State var counter = 10
+        @State var timeIsRunning = true
+        @State private var timeIsUp = false
+        let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    @State private var deadLeaf = false
+    var leavesShow = LifeLeaf()
     
     @State private var showingAlert = false
     
@@ -38,20 +46,40 @@ struct TriviaView: View {
                     Text("\(gameStage) of 5").foregroundStyle(Color.heavyGreen)
                     
                     Spacer()
-                    ForEach(leavesShow.leaves){ leaf in
+                    ForEach(leavesShow.Leaves) { leaf in
                         HStack {
-                            Image(systemName: "leaf")
-                                .foregroundColor(.greenButton)
+                            LeafDeath(deadLeaf: $deadLeaf)
+                            }
                         }
                     }
-                    
-                }
-                .padding()
+                    .padding()
                 
-                Image("cloud-watering-can")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 150)
+                ZStack {
+                    Image("cloud-watering-can")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150)
+                    Text(String(format: "00:%02d", counter))
+                        .onReceive(timer) { _ in
+                            if counter > 0 && timeIsRunning {
+                                counter -= 1
+                            } else {
+                                timeIsUp = true
+                                deadLeaf = true
+                            }
+                        }
+                        .bold()
+                        .alert(isPresented: $timeIsUp){
+                            Alert(
+                                title: Text("Time is up"),
+                                message: Text("The timer has finished, you lost."),
+                                dismissButton: .destructive(Text("Close")) {
+                                    dismiss()
+                                }
+                            )
+                        }
+                }
+                        
                 Image("water-can")
                     .resizable()
                     .scaledToFit()
@@ -92,22 +120,22 @@ struct TriviaView: View {
                     }) {
                         Text("Exit")
                     }
+                    .alert(isPresented: $showingAlert) {
+                        Alert(
+                            title: Text("Confirm Close"),
+                            message: Text("Are you sure you want to close this view?"),
+                            primaryButton: .destructive(Text("Close")) {
+                                dismiss()
+                            },
+                            secondaryButton: .cancel()
+                        )
+                    }
                     .foregroundColor(Color.heavyGreen)
                 })
             }
         }
         .onAppear{
             nextQuestion()
-        }
-        .alert(isPresented: $showingAlert) {
-            Alert(
-                title: Text("Confirm Close"),
-                message: Text("Are you sure you want to close this view?"),
-                primaryButton: .destructive(Text("Close")) {
-                    dismiss()
-                },
-                secondaryButton: .cancel()
-            )
         }
         
         /* This make the modal dismiss itself

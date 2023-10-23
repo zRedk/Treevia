@@ -7,12 +7,20 @@
 
 import SwiftUI
 
-struct SwiftUIView: View {
+struct CountDown: View {
+    @ObservedObject var timerViewModel: TimerViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack(spacing: 5){
+            Text(String(format: "%02d:%02d:%02d", (Int(timerViewModel.remainingTime / 3600)), (Int((timerViewModel.remainingTime.truncatingRemainder(dividingBy: 3600)) / 60)), (Int(timerViewModel.remainingTime.truncatingRemainder(dividingBy: 60)))))
+                .bold()
+            Text("remaining til next watering")
+        }
+            .onAppear {
+                timerViewModel.startTimer() // 5 minutes, change as needed
+            }
+            .onDisappear {
+                timerViewModel.stopTimer()
+            }
     }
-}
-
-#Preview {
-    SwiftUIView()
 }

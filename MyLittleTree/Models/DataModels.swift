@@ -7,8 +7,8 @@
 
 import Foundation
 
-class LeavesView {
-    var leaves: [Leaf] = [
+class LifeLeaf {
+    var Leaves: [Leaf] = [
         Leaf(),
         Leaf(),
         Leaf()

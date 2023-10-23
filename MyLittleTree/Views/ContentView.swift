@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var timerViewModel = TimerViewModel()
     @State private var show_modal: Bool = false
     
     var body: some View {
@@ -22,7 +24,7 @@ struct ContentView: View {
                         Image(systemName: "drop.fill")
                             .foregroundColor(.timeDropMW)
                         //here the text needs to be a function, we need to add the timer to the (time)
-                        Text("(Time:Time) to the next watering")
+                        CountDown(timerViewModel: timerViewModel)
                             .foregroundColor(.timeDropMW) //here timeDropMW is the color for the text with the tear drop
                     }
                     Image("Garden view")

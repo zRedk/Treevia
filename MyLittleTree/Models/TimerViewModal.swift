@@ -7,12 +7,22 @@
 
 import SwiftUI
 
-struct TimerViewModal: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+class TimerViewModel: ObservableObject {
+    @Published var remainingTime: TimeInterval = 0
+    var timer: Timer?
+
+    func startTimer() {
+        self.remainingTime = 8 * 3600 // 8 hours in seconds
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            if self.remainingTime > 0 {
+                self.remainingTime -= 1
+            }
+        }
+    }
+
+    func stopTimer() {
+        self.timer?.invalidate()
+        self.timer = nil
     }
 }
 
-#Preview {
-    TimerViewModal()
-}
