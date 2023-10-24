@@ -16,25 +16,43 @@ struct TriviaView: View {
     @Environment(\.dismiss) var dismiss
     
     //here i'm creating the state var for the timer set to 60 and running set to false
-        @State var counter = 10
-        @State var timeIsRunning = true
-        @State private var timeIsUp = false
-        let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
-    @State private var deadLeaf = false
-    var leavesShow = LifeLeaf()
-    
+    @State private var counter = 10
+    @State private var timeIsRunning = true
+    @State private var timeIsUp = false
+
     @State private var showingAlert = false
     
-    func nextQuestion() {
+    // Start the timer
+    func startTimer() {
+        counter = 10 // Reset the timer to the initial value
+        timeIsRunning = true
+        timeIsUp = false // Reset the timeIsUp flag
+        updateTimer()
+    }
 
+    // Update the timer using DispatchQueue
+    func updateTimer() {
+        DispatchQueue.global(qos: .background).async {
+            while counter > 0 && timeIsRunning {
+                Thread.sleep(forTimeInterval: 1)
+                DispatchQueue.main.async {
+                    counter -= 1
+                    if counter == 0 {
+                        timeIsUp = true
+                    }
+                }
+            }
+        }
+    }
+
+    func nextQuestion() {
         gameStage += 1
         
         guard let nq = hcQuestions.popLast() else {
             currentQuestion = nil
             return
         }
-
+        
         if selectedAnswer == nil {
             leavesShow.regenerateLeavesIfNeeded()
         } else {
@@ -46,14 +64,19 @@ struct TriviaView: View {
             }
             selectedAnswer = nil
         }
-
+        
         currentQuestion = nq
-
+        
+        // Check if gameStage is greater than 5 or leaves are all hidden
         if gameStage > 5 || leavesShow.leaves.filter({ $0.show }).isEmpty {
             self.dismiss()
+        } else if counter == 0 {
+            // When the timer runs out, show the "Continue" button
+            // and handle losing a leaf when the button is pressed
+            selectedAnswer = Answer(text: "Time's Up")
         }
     }
-
+    
     var body: some View {
         NavigationStack {
             
@@ -75,26 +98,12 @@ struct TriviaView: View {
                         .scaledToFit()
                         .frame(width: 150)
                     Text(String(format: "00:%02d", counter))
-                        .onReceive(timer) { _ in
-                            if counter > 0 && timeIsRunning {
-                                counter -= 1
-                            } else {
-                                timeIsUp = true
-                                deadLeaf = true
-                            }
+                        .onAppear {
+                            startTimer() // Start the timer on view appear
                         }
                         .bold()
-                        .alert(isPresented: $timeIsUp){
-                            Alert(
-                                title: Text("Time is up"),
-                                message: Text("The timer has finished, you lost."),
-                                dismissButton: .destructive(Text("Close")) {
-                                    dismiss()
-                                }
-                            )
-                        }
                 }
-                        
+                
                 Image("water-can")
                     .resizable()
                     .scaledToFit()
@@ -125,7 +134,23 @@ struct TriviaView: View {
                             .cornerRadius(20)
                             .padding()
                     } .padding()
+                } else if timeIsUp { // Show the "Continue" button when time is up
+                    Button(action: {
+                        nextQuestion()
+                    }) {
+                        Text("Continue")
+                            .bold()
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(20)
+                            .padding()
+                    }
+                    .padding()
                 }
+                
+                
             }
             .background(Color.accentColor)
             .toolbar {
@@ -150,19 +175,21 @@ struct TriviaView: View {
             }
         }
         .onAppear {
+            startTimer()
             leavesShow.regenerateLeavesIfNeeded()
             nextQuestion()
         }
-        
+
         /* This make the modal dismiss itself
-           when gameStage > 5 is reached
-          
-           This thing is supposed to be replaced
-           with logic that makes your OopsView or your HoorayView
-           display when the player finishes the minigame. */
+         when gameStage > 5 is reached
+         
+         This thing is supposed to be replaced
+         with logic that makes your OopsView or your HoorayView
+         display when the player finishes the minigame. */
         
         .onChange(of: gameStage, {
             if gameStage > 5 {
+                print("Game over!")
                 self.dismiss()
             }
         })

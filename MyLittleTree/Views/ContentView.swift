@@ -12,7 +12,6 @@ struct ContentView: View {
     @ObservedObject var timerViewModel = TimerViewModel()
     @State private var show_modal: Bool = false //Modal var
     @ObservedObject private var leavesShow = LeavesView(leaves: [Leaf(show: true), Leaf(show: true), Leaf(show: true)], lastRegenerationTime: Date())
-
     var body: some View {
         NavigationStack {
             ZStack {
