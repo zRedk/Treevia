@@ -11,7 +11,21 @@ struct ContentView: View {
     
     @ObservedObject var timerViewModel = TimerViewModel()
     @State private var show_modal: Bool = false //Modal var
+    @EnvironmentObject var gameEngine: GameEngine
     @ObservedObject private var leavesShow = LeavesView(leaves: [Leaf(show: true), Leaf(show: true), Leaf(show: true)], lastRegenerationTime: Date())
+    
+    func getPlantImage() -> String {
+        if gameEngine.plantSize == 0 {
+            return "Bud"
+        } else if gameEngine.plantSize == 50 {
+            return "Sapling"
+        } else if gameEngine.plantSize == 100 {
+            return "Tree"
+        } else {
+            return "Placeholder"
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -27,7 +41,8 @@ struct ContentView: View {
                         CountDown(timerViewModel: timerViewModel)
                             .foregroundColor(.timeDropMW) //here timeDropMW is the color for the text with the tear drop
                     }
-                    Image("Garden view")
+                    Text("Plant Size: \(gameEngine.plantSize)")
+                    Image(getPlantImage())
                         .resizable()
                         .aspectRatio(contentMode:.fit)
                         .frame(width: 200)
@@ -53,4 +68,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(GameEngine())
 }

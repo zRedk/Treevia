@@ -20,8 +20,9 @@ class GameEngine: ObservableObject {
            correctAnswersCount = 0
            remainingAttempts = 3
            quizCompleted = false
-           plantSize = UserDefaults.standard.integer(forKey: "plantSize")
-           plantHealth = UserDefaults.standard.integer(forKey: "plantHealth")
+            UserDefaults.standard.set(plantSize, forKey: "plantSize")
+            UserDefaults.standard.set(plantHealth, forKey: "plantHealth")
+
        }
 
     func answerQuestion(isCorrect: Bool) {
@@ -31,7 +32,7 @@ class GameEngine: ObservableObject {
             remainingAttempts -= 1
         }
         
-        if correctAnswersCount == 5 || remainingAttempts > 0 {
+        if correctAnswersCount == 5 && remainingAttempts > 0 {
             if plantHealth == 100 {
                 plantSize += 50
                 savePlantData()
