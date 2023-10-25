@@ -149,11 +149,12 @@ struct TriviaView: View {
             }
             .background(Color.accentColor)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction, content: {
+                ToolbarItem(placement: .destructiveAction, content: {
                     Button(action: {
                         showingAlert = true
                     }) {
-                        Image(systemName: "chevron.down")
+                        Image(systemName: "multiply.circle")
+                            .foregroundStyle(.red)
                     }
                     .alert(isPresented: $showingAlert) {
                         Alert(
