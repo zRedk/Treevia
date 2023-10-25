@@ -10,11 +10,14 @@ import UserNotifications
 
 @main
 struct YourApp: App {
+    @StateObject var gameData = GameEngine()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(gameData)
+
         }
     }
 }

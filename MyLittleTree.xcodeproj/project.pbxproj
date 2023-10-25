@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8E4CBC482AE059EB00C68274 /* AnswerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4CBC472AE059EB00C68274 /* AnswerRow.swift */; };
 		8E4CBC552AE2F58F00C68274 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4CBC542AE2F58F00C68274 /* DataModels.swift */; };
+		8E9AEAB22AE9142C0027F1BE /* PlantModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9AEAB12AE9142C0027F1BE /* PlantModel.swift */; };
 		C00092AD2ADED00800340A86 /* MyLittleTreeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00092AC2ADED00800340A86 /* MyLittleTreeApp.swift */; };
 		C00092AF2ADED00800340A86 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00092AE2ADED00800340A86 /* ContentView.swift */; };
 		C00092B12ADED00800340A86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00092B02ADED00800340A86 /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		8E4CBC472AE059EB00C68274 /* AnswerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerRow.swift; sourceTree = "<group>"; };
 		8E4CBC542AE2F58F00C68274 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
+		8E9AEAB12AE9142C0027F1BE /* PlantModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantModel.swift; sourceTree = "<group>"; };
 		C00092A92ADED00800340A86 /* MyLittleTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLittleTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C00092AC2ADED00800340A86 /* MyLittleTreeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLittleTreeApp.swift; sourceTree = "<group>"; };
 		C00092AE2ADED00800340A86 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				8E4CBC542AE2F58F00C68274 /* DataModels.swift */,
+				8E9AEAB12AE9142C0027F1BE /* PlantModel.swift */,
 				C03A0E302AE6BD42006DE0B6 /* TimerViewModal.swift */,
 				C03A0E322AE6BD8C006DE0B6 /* CountDown.swift */,
 			);
@@ -195,6 +198,7 @@
 				C090FA4C2AE582450052CE97 /* LeafDeath.swift in Sources */,
 				C05E81A82ADF0EF0008EC0F4 /* TriviaView.swift in Sources */,
 				8E4CBC552AE2F58F00C68274 /* DataModels.swift in Sources */,
+				8E9AEAB22AE9142C0027F1BE /* PlantModel.swift in Sources */,
 				ECD17A6F2AE2B7D30034527B /* TriviaAnswer.swift in Sources */,
 				C00092AD2ADED00800340A86 /* MyLittleTreeApp.swift in Sources */,
 				8E4CBC482AE059EB00C68274 /* AnswerRow.swift in Sources */,

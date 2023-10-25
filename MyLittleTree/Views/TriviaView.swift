@@ -14,6 +14,7 @@ struct TriviaView: View {
     @State var currentQuestion: Question?
     @ObservedObject var leavesShow: LeavesView
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var gameData: GameEngine
     
     //here i'm creating the state var for the timer set to 60 and running set to false
     @State private var counter = 10
@@ -115,6 +116,8 @@ struct TriviaView: View {
                         Text(question.text)
                         ForEach(question.Answers){ answer in
                             AnswerRow(answer: answer, selectedAnswer: $selectedAnswer)
+                                .environmentObject(gameData)
+
                         }
                     }
                 } .padding(50)
@@ -191,6 +194,7 @@ struct TriviaView: View {
             if gameStage > 5 {
                 print("Game over!")
                 self.dismiss()
+                
             }
         })
     }
@@ -198,4 +202,5 @@ struct TriviaView: View {
 
 #Preview {
     TriviaView(leavesShow: LeavesView(leaves: [Leaf(show: true), Leaf(show: true), Leaf(show: true)], lastRegenerationTime: Date()))
+        .environmentObject(GameEngine())
 }

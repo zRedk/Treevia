@@ -11,6 +11,8 @@ struct AnswerRow: View {
     var answer: Answer
     //@State private var isSelected = false
     @Binding var selectedAnswer: Answer?
+    @EnvironmentObject var gameData: GameEngine
+
     
     var body: some View {
         HStack(spacing: 20){
@@ -32,6 +34,7 @@ struct AnswerRow: View {
           //  isSelected = true
             if selectedAnswer == nil {
                 selectedAnswer = answer
+                gameData.answerQuestion(isCorrect: answer.isCorrect)
             }
         }
         .allowsHitTesting(selectedAnswer == nil)
