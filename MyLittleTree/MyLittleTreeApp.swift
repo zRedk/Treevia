@@ -7,14 +7,30 @@
 
 import SwiftUI
 import UserNotifications
+import BackgroundTasks
 
 @main
 struct YourApp: App {
+    @StateObject var gameData = GameEngine()
+    @Environment(\.scenePhase) private var phase
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
 
+    /*init() {
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "yourApp.backgroundTask", using: nil) { [weak timerViewModel] task in
+            guard let timerViewModel = timerViewModel else {
+                task.setTaskCompleted(success: false)
+                return
+            }
+            timerViewModel.startTimer()
+            task.setTaskCompleted(success: true)
+        }
+    }*/
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(gameData)
         }
     }
 }

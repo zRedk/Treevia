@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct TriviaView: View {
     @State var gameStage: Int = 0
@@ -14,27 +15,33 @@ struct TriviaView: View {
     @State var currentQuestion: Question?
     @ObservedObject var leavesShow: LeavesView
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var gameData: GameEngine
+    
+    //@ObservedObject var timeRemaining: TimerTriviaView
+    @ObservedObject var viewModel = TimerTriviaView.shared
     
     //here i'm creating the state var for the timer set to 60 and running set to false
-        @State var counter = 10
-        @State var timeIsRunning = true
-        @State private var timeIsUp = false
-        let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    //@State var counter = 10
+    //@State var timeIsRunning = true
+    @State private var timeIsUp = false
+    // @Binding var timeRemaining: Int
+    //let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     @State private var deadLeaf = false
-    var leavesShow = LifeLeaf()
+    @ObservedObject var timerViewModel: TimerViewModel
+    //var leavesShow = LifeLeaf()
     
     @State private var showingAlert = false
     
     func nextQuestion() {
-
+        
         gameStage += 1
         
         guard let nq = hcQuestions.popLast() else {
             currentQuestion = nil
             return
         }
-
+        
         if selectedAnswer == nil {
             leavesShow.regenerateLeavesIfNeeded()
         } else {
@@ -46,14 +53,16 @@ struct TriviaView: View {
             }
             selectedAnswer = nil
         }
-
+        
         currentQuestion = nq
-
+        
         if gameStage > 5 || leavesShow.leaves.filter({ $0.show }).isEmpty {
             self.dismiss()
+            timerViewModel.startTimer()
         }
     }
-
+    
+    
     var body: some View {
         NavigationStack {
             
@@ -73,46 +82,57 @@ struct TriviaView: View {
                     Image("cloud-watering-can")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 150)
-                    Text(String(format: "00:%02d", counter))
-                        .onReceive(timer) { _ in
-                            if counter > 0 && timeIsRunning {
-                                counter -= 1
-                            } else {
-                                timeIsUp = true
-                                deadLeaf = true
+                        .frame(width: 125)
+                    Text(String(format: "00:%02d", viewModel.timeRemaining))
+                        .bold()
+                        .foregroundStyle(.black)
+                        .onReceive(viewModel.$timeRemaining) { newValue in
+                            if newValue <= 0 {
+                                // Use self.dismiss() to trigger dismissal
+                                timerViewModel.startTimer()
+                                timeIsUp = false
+                                if timeIsUp == false {
+                                    viewModel.stopAndReset()
+                                    self.dismiss()
+                                    
+                                }
+                                
                             }
                         }
-                        .bold()
-                        .alert(isPresented: $timeIsUp){
-                            Alert(
-                                title: Text("Time is up"),
-                                message: Text("The timer has finished, you lost."),
-                                dismissButton: .destructive(Text("Close")) {
-                                    dismiss()
-                                }
-                            )
-                        }
+                    
+                    /*.alert(isPresented: $timeIsUp){
+                     Alert(
+                     title: Text("Time is up"),
+                     message: Text("The timer has finished, you lost."),
+                     dismissButton: .destructive(Text("Close")) {
+                     dismiss()
+                     
+                     }
+                     )
+                     }*/
+                    
                 }
-                        
                 Image("water-can")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 150)
+                    .frame(width: 125)
                 
                 
-                VStack(alignment:.center, spacing:15){
+                VStack(alignment:.center, spacing:10){
                     if let question = currentQuestion {
                         Text(question.text)
                         ForEach(question.Answers){ answer in
                             AnswerRow(answer: answer, selectedAnswer: $selectedAnswer)
+                                .environmentObject(gameData)
                         }
                     }
-                } .padding(50)
+                } .padding()
+                
                 
                 Spacer()
                 
                 if selectedAnswer != nil {
+                    
                     Button(action: {
                         nextQuestion()
                     }){
@@ -124,7 +144,7 @@ struct TriviaView: View {
                             .foregroundColor(.white)
                             .cornerRadius(20)
                             .padding()
-                    } .padding()
+                    }
                 }
             }
             .background(Color.accentColor)
@@ -141,6 +161,7 @@ struct TriviaView: View {
                             message: Text("Are you sure you want to close this view?"),
                             primaryButton: .destructive(Text("Close")) {
                                 dismiss()
+                                viewModel.stopAndReset()
                             },
                             secondaryButton: .cancel()
                         )
@@ -155,11 +176,11 @@ struct TriviaView: View {
         }
         
         /* This make the modal dismiss itself
-           when gameStage > 5 is reached
-          
-           This thing is supposed to be replaced
-           with logic that makes your OopsView or your HoorayView
-           display when the player finishes the minigame. */
+         when gameStage > 5 is reached
+         
+         This thing is supposed to be replaced
+         with logic that makes your OopsView or your HoorayView
+         display when the player finishes the minigame. */
         
         .onChange(of: gameStage, {
             if gameStage > 5 {
@@ -169,6 +190,9 @@ struct TriviaView: View {
     }
 }
 
+
 #Preview {
-    TriviaView(leavesShow: LeavesView(leaves: [Leaf(show: true), Leaf(show: true), Leaf(show: true)], lastRegenerationTime: Date()))
+    TriviaView(leavesShow: LeavesView(leaves: [Leaf(show: true), Leaf(show: true), Leaf(show: true)], lastRegenerationTime: Date()), timerViewModel: TimerViewModel())
+        .environmentObject(GameEngine())
 }
+
