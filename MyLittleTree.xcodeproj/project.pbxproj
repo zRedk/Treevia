@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		8E4CBC482AE059EB00C68274 /* AnswerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4CBC472AE059EB00C68274 /* AnswerRow.swift */; };
 		8E4CBC552AE2F58F00C68274 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4CBC542AE2F58F00C68274 /* DataModels.swift */; };
-		C00092AD2ADED00800340A86 /* Treevia.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00092AC2ADED00800340A86 /* Treevia.swift */; };
+		C00092AD2ADED00800340A86 /* MyLittleTreeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00092AC2ADED00800340A86 /* MyLittleTreeApp.swift */; };
 		C00092AF2ADED00800340A86 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00092AE2ADED00800340A86 /* ContentView.swift */; };
 		C00092B12ADED00800340A86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00092B02ADED00800340A86 /* Assets.xcassets */; };
 		C00092B42ADED00800340A86 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00092B32ADED00800340A86 /* Preview Assets.xcassets */; };
@@ -27,7 +27,7 @@
 		8E4CBC472AE059EB00C68274 /* AnswerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerRow.swift; sourceTree = "<group>"; };
 		8E4CBC542AE2F58F00C68274 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		C00092A92ADED00800340A86 /* MyLittleTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLittleTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C00092AC2ADED00800340A86 /* Treevia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Treevia.swift; sourceTree = "<group>"; };
+		C00092AC2ADED00800340A86 /* MyLittleTreeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLittleTreeApp.swift; sourceTree = "<group>"; };
 		C00092AE2ADED00800340A86 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C00092B02ADED00800340A86 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C00092B32ADED00800340A86 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 		C00092AB2ADED00800340A86 /* MyLittleTree */ = {
 			isa = PBXGroup;
 			children = (
-				C00092AC2ADED00800340A86 /* Treevia.swift */,
+				C00092AC2ADED00800340A86 /* MyLittleTreeApp.swift */,
 				8E4CBC4B2AE0771100C68274 /* Models */,
 				8E4CBC462AE059D500C68274 /* Components */,
 				8E4CBC442AE058D900C68274 /* Views */,
@@ -200,7 +200,7 @@
 				8E4CBC552AE2F58F00C68274 /* DataModels.swift in Sources */,
 				C0604A552AE8507400E2C16E /* TimerTriviaView.swift in Sources */,
 				ECD17A6F2AE2B7D30034527B /* TriviaAnswer.swift in Sources */,
-				C00092AD2ADED00800340A86 /* Treevia.swift in Sources */,
+				C00092AD2ADED00800340A86 /* MyLittleTreeApp.swift in Sources */,
 				8E4CBC482AE059EB00C68274 /* AnswerRow.swift in Sources */,
 				E70BCA482AE2BEBF0022F530 /* OopsView.swift in Sources */,
 			);
