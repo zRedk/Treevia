@@ -21,7 +21,7 @@ class TimerViewModel: ObservableObject {
     }
 
     func stopTimer() {
-        self.timer?.invalidate()
+        self.remainingTime = 0
         self.timer = nil
     }
 }

@@ -12,15 +12,17 @@ struct CountDown: View {
     
     var body: some View {
         HStack(spacing: 5){
-            Text(String(format: "%02d:%02d:%02d", (Int(timerViewModel.remainingTime / 3600)), (Int((timerViewModel.remainingTime.truncatingRemainder(dividingBy: 3600)) / 60)), (Int(timerViewModel.remainingTime.truncatingRemainder(dividingBy: 60)))))
-                .bold()
-            Text("remaining til next watering")
+            if timerViewModel.remainingTime > 0 {
+                Text(String(format: "%02d:%02d:%02d", (Int(timerViewModel.remainingTime / 3600)), (Int((timerViewModel.remainingTime.truncatingRemainder(dividingBy: 3600)) / 60)), (Int(timerViewModel.remainingTime.truncatingRemainder(dividingBy: 60)))))
+                    .bold()
+                Text("remaining til next watering")
+            } else {
+                Text("You can play now!")
+                    .bold()
+            }
         }
             .onAppear {
-                timerViewModel.startTimer() // 5 minutes, change as needed
+                timerViewModel.stopTimer() 
             }
-            .onDisappear {
-                timerViewModel.stopTimer()
-            }
+        }
     }
-}
