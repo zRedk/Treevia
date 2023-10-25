@@ -11,6 +11,7 @@ import BackgroundTasks
 
 @main
 struct YourApp: App {
+    @StateObject var gameData = GameEngine()
     @Environment(\.scenePhase) private var phase
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
@@ -29,6 +30,7 @@ struct YourApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(gameData)
         }
     }
 }

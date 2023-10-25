@@ -15,6 +15,7 @@ struct TriviaView: View {
     @State var currentQuestion: Question?
     @ObservedObject var leavesShow: LeavesView
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var gameData: GameEngine
     
     //@ObservedObject var timeRemaining: TimerTriviaView
     @ObservedObject var viewModel = TimerTriviaView.shared
@@ -122,9 +123,11 @@ struct TriviaView: View {
                         Text(question.text)
                         ForEach(question.Answers){ answer in
                             AnswerRow(answer: answer, selectedAnswer: $selectedAnswer)
+                                .environmentObject(gameData)
                         }
                     }
                 } .padding()
+                
                 
                 Spacer()
                 
@@ -190,5 +193,6 @@ struct TriviaView: View {
 
 #Preview {
     TriviaView(leavesShow: LeavesView(leaves: [Leaf(show: true), Leaf(show: true), Leaf(show: true)], lastRegenerationTime: Date()), timerViewModel: TimerViewModel())
+        .environmentObject(GameEngine())
 }
 

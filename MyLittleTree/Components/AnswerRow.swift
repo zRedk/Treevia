@@ -11,7 +11,7 @@ struct AnswerRow: View {
     var answer: Answer
     //@State private var isSelected = false
     @Binding var selectedAnswer: Answer?
-    
+    @EnvironmentObject var gameData: GameEngine
     var body: some View {
         HStack(spacing: 20){
         
