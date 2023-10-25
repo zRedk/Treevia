@@ -10,12 +10,16 @@ import UserNotifications
 
 @main
 struct YourApp: App {
+   //Copy this
     @StateObject var gameData = GameEngine()
+    
+    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+            //Copy this
                 .environmentObject(gameData)
 
         }

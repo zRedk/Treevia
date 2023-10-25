@@ -11,9 +11,11 @@ struct ContentView: View {
     
     @ObservedObject var timerViewModel = TimerViewModel()
     @State private var show_modal: Bool = false //Modal var
+    //Copy this
     @EnvironmentObject var gameEngine: GameEngine
     @ObservedObject private var leavesShow = LeavesView(leaves: [Leaf(show: true), Leaf(show: true), Leaf(show: true)], lastRegenerationTime: Date())
     
+    //Copy this
     func getPlantImage() -> String {
         if gameEngine.plantSize == 0 {
             return "Bud"
@@ -68,5 +70,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .environmentObject(GameEngine())
+        .environmentObject(GameEngine())    //Copy this
 }

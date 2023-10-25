@@ -14,6 +14,7 @@ struct TriviaView: View {
     @State var currentQuestion: Question?
     @ObservedObject var leavesShow: LeavesView
     @Environment(\.dismiss) var dismiss
+    //Copy this
     @EnvironmentObject var gameData: GameEngine
     
     //here i'm creating the state var for the timer set to 60 and running set to false
@@ -116,6 +117,7 @@ struct TriviaView: View {
                         Text(question.text)
                         ForEach(question.Answers){ answer in
                             AnswerRow(answer: answer, selectedAnswer: $selectedAnswer)
+                            //Copy this
                                 .environmentObject(gameData)
 
                         }
@@ -202,5 +204,6 @@ struct TriviaView: View {
 
 #Preview {
     TriviaView(leavesShow: LeavesView(leaves: [Leaf(show: true), Leaf(show: true), Leaf(show: true)], lastRegenerationTime: Date()))
+    //Copy this
         .environmentObject(GameEngine())
 }

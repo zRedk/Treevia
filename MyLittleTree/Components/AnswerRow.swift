@@ -11,6 +11,8 @@ struct AnswerRow: View {
     var answer: Answer
     //@State private var isSelected = false
     @Binding var selectedAnswer: Answer?
+    
+    //Copy this
     @EnvironmentObject var gameData: GameEngine
 
     
@@ -34,6 +36,7 @@ struct AnswerRow: View {
           //  isSelected = true
             if selectedAnswer == nil {
                 selectedAnswer = answer
+                //Copy this
                 gameData.answerQuestion(isCorrect: answer.isCorrect)
             }
         }
