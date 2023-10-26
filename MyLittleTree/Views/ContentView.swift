@@ -45,6 +45,9 @@ struct ContentView: View {
                 
                 VStack{
                     HStack{
+                        Image(systemName: "drop.fill")
+                            .foregroundColor(.timeDropMW)
+                        //here the text needs to be a function, we need to add the timer to the (time)
                         CountDown(timerViewModel: timerViewModel)
                             .foregroundColor(.timeDropMW) //here timeDropMW is the color for the text with the tear drop
                     }
