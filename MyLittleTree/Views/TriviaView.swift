@@ -13,7 +13,6 @@ struct TriviaView: View {
     
     @State private var selectedAnswer: Answer? = nil
     @State var currentQuestion: Question?
-    @ObservedObject var leavesShow: LeavesView
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var gameData: GameEngine
     
@@ -34,35 +33,28 @@ struct TriviaView: View {
     @State private var showingAlert = false
     
     func nextQuestion() {
-        
         gameStage += 1
-        
+
         guard let nq = hcQuestions.popLast() else {
             currentQuestion = nil
             return
         }
-        
+
         if selectedAnswer == nil {
-            leavesShow.regenerateLeavesIfNeeded()
+            gameData.regenerateLeavesIfNeeded()
         } else {
-            if let selectedAnswer = selectedAnswer, !selectedAnswer.isCorrect {
-                // User selected a wrong answer, hide a leaf
-                if let firstVisibleLeafIndex = leavesShow.leaves.firstIndex(where: { $0.show }) {
-                    leavesShow.leaves[firstVisibleLeafIndex].show = false
-                }
-            }
             selectedAnswer = nil
         }
-        
+
         currentQuestion = nq
-        
-        if gameStage > 5 || leavesShow.leaves.filter({ $0.show }).isEmpty {
+
+        if gameStage > 5 || gameData.allLeavesHidden() || gameData.remainingAttempts <= 0 {
             self.dismiss()
             timerViewModel.startTimer()
             viewModel.stopAndReset()
         }
     }
-    
+
     var body: some View {
         NavigationStack {
             
@@ -71,7 +63,7 @@ struct TriviaView: View {
                     Text("\(gameStage) of 5").foregroundStyle(Color.heavyGreen)
                     
                     Spacer()
-                    ForEach(leavesShow.leaves) { leaf in
+                    ForEach(gameData.leaves) { leaf in
                         Image(systemName: leaf.show ? "leaf.fill" : "leaf")
                             .foregroundColor(.greenButton)
                     }
@@ -182,7 +174,6 @@ struct TriviaView: View {
             }
         }
         .onAppear {
-            leavesShow.regenerateLeavesIfNeeded()
             nextQuestion()
         }
         
@@ -195,7 +186,7 @@ struct TriviaView: View {
         
         .onChange(of: gameStage, {
             if gameStage > 5 {
-                if gameStage > 5 || leavesShow.leaves.filter({ $0.show }).count > 0 {
+                if gameStage > 5 || gameData.leaves.filter({ $0.show }).count > 0 {
                     self.dismiss()
                     timerViewModel.stopTimer()
                 }
@@ -206,7 +197,7 @@ struct TriviaView: View {
 
 
 #Preview {
-    TriviaView(leavesShow: LeavesView(leaves: [Leaf(show: true), Leaf(show: true), Leaf(show: true)], lastRegenerationTime: Date()), timerViewModel: TimerViewModel())
+    TriviaView(timerViewModel: TimerViewModel())
         .environmentObject(GameEngine())
 }
 

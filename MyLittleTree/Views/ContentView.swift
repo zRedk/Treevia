@@ -13,9 +13,6 @@ struct ContentView: View {
     @ObservedObject var timerViewModel = TimerViewModel()
     @State private var show_modal: Bool = false
     @EnvironmentObject var gameData: GameEngine
-        
-    @ObservedObject private var leavesShow = LeavesView(leaves: [Leaf(show: true), Leaf(show: true), Leaf(show: true)], lastRegenerationTime: Date())
-    
     @ObservedObject var timerTriviaView = TimerTriviaView()
     @ObservedObject var viewModel = TimerTriviaView.shared
     
@@ -73,13 +70,13 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .cornerRadius(230)
                     .fullScreenCover(isPresented: self.$show_modal) {
-                        TriviaView(leavesShow: leavesShow, timerViewModel: timerViewModel)
+                        TriviaView(timerViewModel: timerViewModel)
                     }
                     
                 }
                 .padding(.bottom, 50.0)
             }
-            .navigationTitle("My Cute Little Tree")
+            .navigationTitle("Treevia")
         }.environment(\.colorScheme, .dark)
     }
 }

@@ -25,11 +25,10 @@ struct AnswerRow: View {
         //.background(isSelected ? (answer.isCorrect ? .heavyGreen : .redWrong ): .greenButton)
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .onTapGesture {
-          //  isSelected = true
             if selectedAnswer == nil {
                 selectedAnswer = answer
                 gameData.answerQuestion(isCorrect: answer.isCorrect)
-
+                
             }
         }
         .allowsHitTesting(selectedAnswer == nil)
@@ -37,7 +36,7 @@ struct AnswerRow: View {
 }
 
 #Preview {
-    AnswerRow(answer: Answer(text: "Placeholder", isCorrect: false), selectedAnswer: .constant(nil)) 
+    AnswerRow(answer: Answer(text: "Placeholder", isCorrect: false), selectedAnswer: .constant(nil))
         .environmentObject(GameEngine())
-
+    
 }
