@@ -14,18 +14,14 @@ struct AnswerRow: View {
     @EnvironmentObject var gameData: GameEngine
     var body: some View {
         HStack(spacing: 20){
-        
-            
             Text(answer.text)
                 .bold()
-                
-            
-            
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .center)
-        .foregroundStyle(selectedAnswer == answer ? .black : (selectedAnswer == nil ? .black : .gray))
-        .background(selectedAnswer == answer ? (answer.isCorrect ? .heavyGreen : .redWrong) : .greenButton)
+        .foregroundStyle(selectedAnswer == answer ? .white : (selectedAnswer == nil ? .white : .black))
+        .background(selectedAnswer == answer ? (answer.isCorrect ? .heavyGreen : .redWrong) : selectedAnswer == nil ? .greenButton : .gray)
+        //.background(selectedAnswer == answer ? (answer.isCorrect ? .heavyGreen : .redWrong) : .greenButton)
         //.background(isSelected ? (answer.isCorrect ? .heavyGreen : .redWrong ): .greenButton)
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .onTapGesture {
