@@ -59,9 +59,9 @@ struct TriviaView: View {
         if gameStage > 5 || leavesShow.leaves.filter({ $0.show }).isEmpty {
             self.dismiss()
             timerViewModel.startTimer()
-            viewModel.stopAndReset()
         }
     }
+    
     
     var body: some View {
         NavigationStack {
@@ -78,12 +78,13 @@ struct TriviaView: View {
                 }
                 .padding()
                 
-                VStack(spacing: 3) {
+                ZStack {
+                    Image("cloud-watering-can")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 125)
                     Text(String(format: "00:%02d", viewModel.timeRemaining))
                         .bold()
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                        .padding([.leading, .trailing], 10)
-                        .padding(.top, -20)
                         .foregroundStyle(.black)
                         .onReceive(viewModel.$timeRemaining) { newValue in
                             if newValue <= 0 {
@@ -98,10 +99,6 @@ struct TriviaView: View {
                                 
                             }
                         }
-                    Image("cloud-watering-can")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 100)
                     
                     /*.alert(isPresented: $timeIsUp){
                      Alert(
@@ -118,23 +115,18 @@ struct TriviaView: View {
                 Image("water-can")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 150)
+                    .frame(width: 125)
                 
                 
-                VStack(alignment:.leading, spacing:8){
+                VStack(alignment:.center, spacing:10){
                     if let question = currentQuestion {
                         Text(question.text)
-                            .foregroundStyle(.black)
-                            .padding([.leading, .trailing], 10)
-                            .bold()
                         ForEach(question.Answers){ answer in
                             AnswerRow(answer: answer, selectedAnswer: $selectedAnswer)
                                 .environmentObject(gameData)
                         }
                     }
-                    Spacer()
-                }
-                .padding()
+                } .padding()
                 
                 
                 Spacer()
@@ -143,8 +135,6 @@ struct TriviaView: View {
                     
                     Button(action: {
                         nextQuestion()
-                        viewModel.stopAndReset()
-                        viewModel.startCountdown()
                     }){
                         Text("Continue")
                             .bold()
@@ -153,7 +143,7 @@ struct TriviaView: View {
                             .background(Color.green)
                             .foregroundColor(.white)
                             .cornerRadius(20)
-                            .padding([.leading, .trailing], 10)
+                            .padding()
                     }
                 }
             }
@@ -195,10 +185,7 @@ struct TriviaView: View {
         
         .onChange(of: gameStage, {
             if gameStage > 5 {
-                if gameStage > 5 || leavesShow.leaves.filter({ $0.show }).count > 0 {
-                    self.dismiss()
-                    timerViewModel.stopTimer()
-                }
+                self.dismiss()
             }
         })
     }

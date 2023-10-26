@@ -1,53 +1,52 @@
 import Foundation
 
 var hcQuestions = [
-    Question(text: "What is the process by which plants make their own food using sunlight?", Answers: [
-        Answer(text: "Photosynthesis", isCorrect: true),
-        Answer(text: "Respiration"),
-        Answer(text: "Transpiration"),
-        Answer(text: "Germination")]),
+    Question(text: "What is the largest desert in the world?", Answers: [
+        Answer(text: "Sahara Desert", isCorrect: true),
+        Answer(text: "Gobi Desert"),
+        Answer(text: "Antarctica"),
+        Answer(text: "Atacama Desert")]),
     
-    Question(text: "Which part of the plant is responsible for absorbing water and nutrients from the soil?", Answers: [
-        Answer(text: "Leaves"),
-        Answer(text: "Roots", isCorrect: true),
-        Answer(text: "Stems"),
-        Answer(text: "Flowers")]),
+    Question(text: "Who wrote the play 'Romeo and Juliet'?", Answers: [
+        Answer(text: "Charles Dickens"),
+        Answer(text: "William Shakespeare", isCorrect: true),
+        Answer(text: "Mark Twain"),
+        Answer(text: "Jane Austen")]),
     
-    Question(text: "What is the primary function of a plant's leaves?", Answers: [
-        Answer(text: "To store water"),
-        Answer(text: "To provide structural support"),
-        Answer(text: "To capture sunlight for photosynthesis", isCorrect: true),
-        Answer(text: "To anchor the plant to the ground")]),
+    Question(text: "Who painted the Mona Lisa?", Answers: [
+        Answer(text: "Vincent van Gogh"),
+        Answer(text: "Pablo Picasso"),
+        Answer(text: "Leonardo da Vinci", isCorrect: true),
+        Answer(text: "Rembrandt")]),
     
-    Question(text: "Which gas do plants release into the atmosphere as a byproduct of photosynthesis?", Answers: [
-        Answer(text: "Oxygen", isCorrect: true),
-        Answer(text: "Carbon dioxide"),
-        Answer(text: "Nitrogen"),
-        Answer(text: "Hydrogen")]),
+    Question(text: "What is the fastest animal in the world?", Answers: [
+        Answer(text: "Cheetah", isCorrect: true),
+        Answer(text: "Elephant"),
+        Answer(text: "Turtle"),
+        Answer(text: "Gorilla")]),
     
-    Question(text: "What is the name of the reproductive structures in flowering plants?", Answers: [
-        Answer(text: "Fruit", isCorrect: true),
-        Answer(text: "Seeds"),
-        Answer(text: "Pollen"),
-        Answer(text: "Petals")]),
+    Question(text: "How many continents are there on Earth?", Answers: [
+        Answer(text: "7", isCorrect: true),
+        Answer(text: "5"),
+        Answer(text: "3"),
+        Answer(text: "9")]),
+    Question(text: "In which year did the Titanic sink?", Answers: [
+        Answer(text: "1907"),
+        Answer(text: "1912", isCorrect: true),
+        Answer(text: "1921"),
+        Answer(text: "1935")]),
     
-    Question(text: "Which part of the plant is responsible for the transport of water and nutrients between the roots and the rest of the plant?", Answers: [
-        Answer(text: "Leaves"),
-        Answer(text: "Stems", isCorrect: true),
-        Answer(text: "Flowers"),
-        Answer(text: "Petals")]),
+    Question(text: "Who was the first person to set foot on the moon?", Answers: [
+        Answer(text: "Buzz Aldrin"),
+        Answer(text: "Neil Armstrong", isCorrect: true),
+        Answer(text: "Yuri Gagarin"),
+        Answer(text: "John Glenn")]),
     
-    Question(text: "What is the name of the process by which water vapor is released from small openings in plant leaves?", Answers: [
-        Answer(text: "Respiration"),
-        Answer(text: "Transpiration", isCorrect: true),
-        Answer(text: "Photosynthesis"),
-        Answer(text: "Germination")]),
-    
-    Question(text: "What is the primary function of a plant's roots?", Answers: [
-        Answer(text: "To produce flowers"),
-        Answer(text: "To capture sunlight for photosynthesis"),
-        Answer(text: "To store excess water"),
-        Answer(text: "To anchor the plant in the soil", isCorrect: true)
+    Question(text: "What is the largest mammal in the world?", Answers: [
+        Answer(text: "African elephant"),
+        Answer(text: "Giraffe"),
+        Answer(text: "Blue whale", isCorrect: true),
+        Answer(text: "Kangaroo")
     ])
     
 ]
