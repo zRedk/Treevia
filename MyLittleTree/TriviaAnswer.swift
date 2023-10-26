@@ -42,7 +42,6 @@ var hcQuestions = [
         Answer(text: "Transpiration", isCorrect: true),
         Answer(text: "Photosynthesis"),
         Answer(text: "Germination")]),
-    
     Question(text: "What is the primary function of a plant's roots?", Answers: [
         Answer(text: "To produce flowers"),
         Answer(text: "To capture sunlight for photosynthesis"),
