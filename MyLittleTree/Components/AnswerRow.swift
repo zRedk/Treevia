@@ -32,6 +32,8 @@ struct AnswerRow: View {
           //  isSelected = true
             if selectedAnswer == nil {
                 selectedAnswer = answer
+                gameData.answerQuestion(isCorrect: answer.isCorrect)
+
             }
         }
         .allowsHitTesting(selectedAnswer == nil)
@@ -39,5 +41,7 @@ struct AnswerRow: View {
 }
 
 #Preview {
-    AnswerRow(answer: Answer(text: "Placeholder", isCorrect: false), selectedAnswer: .constant(nil))
+    AnswerRow(answer: Answer(text: "Placeholder", isCorrect: false), selectedAnswer: .constant(nil)) 
+        .environmentObject(GameEngine())
+
 }

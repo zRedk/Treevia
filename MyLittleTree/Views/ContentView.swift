@@ -12,8 +12,7 @@ struct ContentView: View {
     
     @ObservedObject var timerViewModel = TimerViewModel()
     @State private var show_modal: Bool = false
-    @EnvironmentObject var gameEngine: GameEngine
-    //Modal var
+    @EnvironmentObject var gameData: GameEngine
         
     @ObservedObject private var leavesShow = LeavesView(leaves: [Leaf(show: true), Leaf(show: true), Leaf(show: true)], lastRegenerationTime: Date())
     
@@ -25,16 +24,17 @@ struct ContentView: View {
     }
     
     func getPlantImage() -> String {
-         if gameEngine.plantSize == 0 {
-             return "Bud"
-        } else if gameEngine.plantSize == 50 {
-            return "Sapling"
-        } else if gameEngine.plantSize == 100 {
-            return "Tree"
+        if  gameData.plantSize == 0 {
+            return (gameData.plantHealth == 100) ? "Bud" : "SickBud"
+        } else if gameData.plantSize == 50 {
+            return (gameData.plantHealth == 100) ? "Spruce" : "SickSpruce"
+        } else if gameData.plantSize == 100 {
+            return (gameData.plantHealth == 100) ? "Tree" : "SickTree"
         } else {
-            return "Placeholder"
+            return "placeholder"
         }
     }
+
     
     var body: some View {
         NavigationStack {
@@ -51,6 +51,11 @@ struct ContentView: View {
                         CountDown(timerViewModel: timerViewModel)
                             .foregroundColor(.timeDropMW) //here timeDropMW is the color for the text with the tear drop
                     }
+                    Text("Plant Health: \(gameData.plantHealth)")
+                        .foregroundStyle(.black)
+                    Text("Plant Size: \(gameData.plantSize)")
+                        .foregroundStyle(.black)
+
                     Image(getPlantImage())
                         .resizable()
                         .aspectRatio(contentMode:.fit)
@@ -84,5 +89,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .environmentObject(GameEngine())    //Copy this
+        .environmentObject(GameEngine()) 
 }
