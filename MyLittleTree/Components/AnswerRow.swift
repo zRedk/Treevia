@@ -21,14 +21,12 @@ struct AnswerRow: View {
         .frame(maxWidth: .infinity, alignment: .center)
         .foregroundStyle(selectedAnswer == answer ? .white : (selectedAnswer == nil ? .white : .black))
         .background(selectedAnswer == answer ? (answer.isCorrect ? .heavyGreen : .redWrong) : selectedAnswer == nil ? .greenButton : .gray)
-        //.background(selectedAnswer == answer ? (answer.isCorrect ? .heavyGreen : .redWrong) : .greenButton)
-        //.background(isSelected ? (answer.isCorrect ? .heavyGreen : .redWrong ): .greenButton)
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .onTapGesture {
             if selectedAnswer == nil {
                 selectedAnswer = answer
                 gameData.answerQuestion(isCorrect: answer.isCorrect)
-                
+                gameData.stopTimer()
             }
         }
         .allowsHitTesting(selectedAnswer == nil)

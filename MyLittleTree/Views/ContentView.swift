@@ -10,12 +10,10 @@ import Combine
 
 struct ContentView: View {
     
-    @ObservedObject var timerViewModel = TimerViewModel()
     @State private var show_modal: Bool = false
     @EnvironmentObject var gameData: GameEngine
-    @ObservedObject var timerTriviaView = TimerTriviaView()
-    @ObservedObject var viewModel = TimerTriviaView.shared
-    
+    @State private var showAlert: Bool = false
+
     init () {
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.init(Color.black)]
     }
@@ -31,7 +29,6 @@ struct ContentView: View {
             return "placeholder"
         }
     }
-
     
     var body: some View {
         NavigationStack {
@@ -42,14 +39,9 @@ struct ContentView: View {
                 
                 VStack{
                     HStack{
-                        CountDown(timerViewModel: timerViewModel)
+                        CountDown()
                             .foregroundColor(.timeDropMW) //here timeDropMW is the color for the text with the tear drop
                     }
-                    Text("Plant Health: \(gameData.plantHealth)")
-                        .foregroundStyle(.black)
-                    Text("Plant Size: \(gameData.plantSize)")
-                        .foregroundStyle(.black)
-
                     Image(getPlantImage())
                         .resizable()
                         .aspectRatio(contentMode:.fit)
@@ -57,12 +49,13 @@ struct ContentView: View {
                         .padding(.bottom, 20.0)
                     //here to the button we need to add the function showmodal, and create a call to action to the next page (i.e. the trivia page)
                     Button("Water your plant!") {
-                        if viewModel.timeRemaining >= 20 {
-                            viewModel.startCountdown()
-                        }
-                        self.show_modal = true
-                        if timerViewModel.remainingTime > 0 {
-                            self.show_modal = false
+                        if gameData.canPlayToday() {
+                            // If the user can play today, then present the trivia view.
+                            self.show_modal = true
+                            gameData.startGame()
+                        } else {
+                            // If not, show the alert.
+                            showAlert = true
                         }
                     }
                     .padding(25.0)
@@ -70,18 +63,24 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .cornerRadius(230)
                     .fullScreenCover(isPresented: self.$show_modal) {
-                        TriviaView(timerViewModel: timerViewModel)
+                        TriviaView()
                     }
                     
                 }
                 .padding(.bottom, 50.0)
             }
             .navigationTitle("Treevia")
-        }.environment(\.colorScheme, .dark)
+        }
+        .environment(\.colorScheme, .dark)
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Wait a Moment!"),
+                  message: Text("You've already played today. Please wait for the next watering time."),
+                  dismissButton: .default(Text("Got it!")))
+        }
     }
 }
 
 #Preview {
     ContentView()
-        .environmentObject(GameEngine()) 
+        .environmentObject(GameEngine())
 }
