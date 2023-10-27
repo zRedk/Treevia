@@ -1,9 +1,4 @@
-//
 //  HoorayView.swift
-//  MyLittleTree
-//
-//  Created by Francesca Pia Sasso on 20/10/23.
-//
 
 import SwiftUI
 
@@ -11,9 +6,6 @@ struct HoorayView: View {
     var body: some View {
         ZStack{
             Color.accentColor
-                .ignoresSafeArea()
-            Color.black
-                .opacity(0.3)
                 .ignoresSafeArea()
             VStack {
                 Text("Hooray!")
@@ -35,11 +27,9 @@ struct HoorayView: View {
                     .multilineTextAlignment(.center)
             }
         }
+        .environment(\.colorScheme, .light)
     }
 }
-
-    
-
 
 #Preview {
     HoorayView()

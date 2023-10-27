@@ -8,12 +8,11 @@ struct TriviaView: View {
     
     @State private var selectedAnswer: Answer? = nil
     @State var currentQuestion: Question?
-    @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var gameData: GameEngine
-        
     @State private var timeIsUp = false
     @State private var showingAlert = false
-    
+    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var gameData: GameEngine
+
     func nextQuestion() {
         gameStage += 1
 
@@ -50,42 +49,50 @@ struct TriviaView: View {
                 }
                 .padding()
                 
-                VStack(spacing: 3) {
-                    Text(String(format: "00:%02d", gameData.timeRemainingForTrivia))
-                        .bold()
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                        .padding([.leading, .trailing], 10)
-                        .padding(.top, -20)
-                        .foregroundStyle(.black)
-                        .onReceive(gameData.$timeRemainingForTrivia) { newValue in
-                            if newValue <= 0 {
-                                gameData.loseLeaf()
+                if (gameData.gameState == true){
+                    VStack(spacing: 3) {
+                        Text(String(format: "00:%02d", gameData.timeRemainingForTrivia))
+                            .bold()
+                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                            .padding([.leading, .trailing], 10)
+                            .padding(.top, -20)
+                            .foregroundStyle(.black)
+                            .onReceive(gameData.$timeRemainingForTrivia) { newValue in
+                                if newValue <= 0 {
+                                    gameData.loseLeaf()
+                                }
+                            }
+                        Image("cloud-watering-can")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100)
+                        Image("water-can")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 150)
+                    }
+                    
+                    VStack(alignment:.leading, spacing:8){
+                        if let question = currentQuestion {
+                            Text(question.text)
+                                .foregroundStyle(.black)
+                                .padding([.leading, .trailing], 10)
+                                .bold()
+                            ForEach(question.Answers){ answer in
+                                AnswerRow(answer: answer, selectedAnswer: $selectedAnswer)
+                                    .environmentObject(gameData)
                             }
                         }
-                    Image("cloud-watering-can")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 100)
-                }
-                Image("water-can")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 150)
-                
-                VStack(alignment:.leading, spacing:8){
-                    if let question = currentQuestion {
-                        Text(question.text)
-                            .foregroundStyle(.black)
-                            .padding([.leading, .trailing], 10)
-                            .bold()
-                        ForEach(question.Answers){ answer in
-                            AnswerRow(answer: answer, selectedAnswer: $selectedAnswer)
-                                .environmentObject(gameData)
-                        }
+                        Spacer()
                     }
-                    Spacer()
+                    .padding()
+                } else {
+                    if(gameData.gameWin == true){
+                        HoorayView()
+                    } else {
+                        OopsView()
+                    }
                 }
-                .padding()
                 
                 
                 Spacer()
@@ -99,12 +106,13 @@ struct TriviaView: View {
                         Text("Continue")
                             .bold()
                             .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.green)
                             .foregroundColor(.white)
-                            .cornerRadius(20)
-                            .padding([.leading, .trailing], 10)
                     }
+                    .padding()
+                    .background(Color.green)
+                    .cornerRadius(20)
+                    .padding([.leading, .trailing], 10)
+
                 }
             }
             .background(Color.accentColor)

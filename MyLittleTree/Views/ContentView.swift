@@ -67,7 +67,7 @@ struct ContentView: View {
             }
             .navigationTitle("Treevia")
         }
-        .environment(\.colorScheme, .dark)
+        .environment(\.colorScheme, .light)
         
         .fullScreenCover(isPresented: self.$showTriviaModal) {
             TriviaView()

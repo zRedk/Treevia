@@ -11,6 +11,9 @@ class GameEngine: ObservableObject {
     @Published var leaves: [Leaf]
     @Published var timeRemainingForTrivia: Int = 20
     @Published var timeRemainingForNextPlay: Int = 0
+    @Published var gameWin: Bool = false
+    @Published var gameState: Bool = false
+
     var answersCount = 0
     private var timerTrivia: Timer?
     private var countdown: Timer?
@@ -98,7 +101,9 @@ class GameEngine: ObservableObject {
         correctAnswersCount = 0
         remainingAttempts = 3
         answersCount = 0
-        
+        gameWin = false
+        gameState = true
+
         // Set the last played date to today
         lastPlayedDate = Date()
 
@@ -189,6 +194,8 @@ class GameEngine: ObservableObject {
 
         // Continue with your existing logic for correct answers and checking for game completion
         if answersCount == 5 && remainingAttempts > 0 {
+            gameState = false
+            gameWin = true
             if plantHealth == 100 {
                 plantSize += 50
                 savePlantData()
@@ -197,6 +204,9 @@ class GameEngine: ObservableObject {
                 savePlantData()
             }
         } else if answersCount == 5 && remainingAttempts <= 0 {
+            gameState = false
+            gameWin = false
+
             plantHealth -= 50
             savePlantData()
             if plantHealth <= 0 {
