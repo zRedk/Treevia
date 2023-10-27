@@ -25,11 +25,14 @@ struct CountDown: View {
                     Text(String(format: "%02d:%02d:%02d", hours, minutes, seconds)).bold()
                     Text("remaining til next watering")
                 }
+                .foregroundColor(.timeDropMW)
+
             } else {
                 HStack(spacing: 5) {
                     Image(systemName: "tree.fill")
                     Text("Learn more about plants!").bold()
                 }
+                .foregroundColor(.timeDropMW)
             }
         }
         .onReceive(timer) { _ in
@@ -37,4 +40,9 @@ struct CountDown: View {
             self.lastUpdate = Date()
         }
     }
+}
+
+#Preview {
+    CountDown()
+        .environmentObject(GameEngine()) // Provide a GameEngine instance here
 }

@@ -9,6 +9,7 @@ struct ContentView: View {
     @State private var showDetailsModal: Bool = false
     @EnvironmentObject var gameData: GameEngine
     @State private var showAlert: Bool = false
+    private let maxHeight: CGFloat = 100 // Maximum Modal height
 
     init () {
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.init(Color.black)]
@@ -35,7 +36,6 @@ struct ContentView: View {
                 VStack{
                     HStack{
                         CountDown()
-                            .foregroundColor(.timeDropMW) //here timeDropMW is the color for the text with the tear drop
                     }
                     Button(action: {
                         self.showDetailsModal = true
@@ -73,10 +73,11 @@ struct ContentView: View {
             TriviaView()
         }
         
-        .sheet(isPresented: self.$showDetailsModal, content: {
+        .sheet(isPresented: self.$showDetailsModal) {
             DetailsView()
-        })
-        
+                .background(Color.red)
+        }
+
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Wait a Moment!"),
                   message: Text("You've already played today. Please wait for the next watering time."),
