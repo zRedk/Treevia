@@ -1,9 +1,4 @@
-//
 //  TriviaView.swift
-//  MyLittleTree
-//
-//  Created by Emanuele Di Pietro on 17/10/23.
-//
 
 import SwiftUI
 import Combine
@@ -57,13 +52,13 @@ struct TriviaView: View {
                 .padding()
                 
                 VStack(spacing: 3) {
-                    Text(String(format: "00:%02d", gameData.timeRemaining))
+                    Text(String(format: "00:%02d", gameData.timeRemainingForTrivia))
                         .bold()
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .padding([.leading, .trailing], 10)
                         .padding(.top, -20)
                         .foregroundStyle(.black)
-                        .onReceive(gameData.$timeRemaining) { newValue in
+                        .onReceive(gameData.$timeRemainingForTrivia) { newValue in
                             if newValue <= 0 {
                                 gameData.loseLeaf()
                             }
@@ -96,11 +91,11 @@ struct TriviaView: View {
                 
                 Spacer()
                 
-                if selectedAnswer != nil || gameData.timeRemaining<=0 {
+                if selectedAnswer != nil || gameData.timeRemainingForTrivia<=0 {
                     Button(action: {
                         nextQuestion()
                         gameData.resetTimer()
-                        gameData.startCountdown()
+                        gameData.startTimer()
                     }){
                         Text("Continue")
                             .bold()
@@ -128,6 +123,7 @@ struct TriviaView: View {
                             message: Text("Are you sure you want to close this view?"),
                             primaryButton: .destructive(Text("Close")) {
                                 dismiss()
+                                gameData.stopTimer()
                                 gameData.startCountdown()
                             },
                             secondaryButton: .cancel()
@@ -139,12 +135,13 @@ struct TriviaView: View {
         }
         .onAppear {
             nextQuestion()
-            gameData.startCountdown() // Start the countdown
+            gameData.startTimer() // Start the countdown
         }
         
         .onChange(of: gameStage, {
             if gameStage > 5 || gameData.leaves.filter({ $0.show }).count <= 0{
                 dismiss()
+                gameData.stopTimer()
                 gameData.startCountdown()
             }
         })

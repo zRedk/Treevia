@@ -1,9 +1,4 @@
-//
-//  PlantModel.swift
-//  MyLittleTree
-//
-//  Created by Federica Mosca on 25/10/23.
-//
+//  GameEngine.swift
 
 import Foundation
 import UIKit
@@ -15,10 +10,12 @@ class GameEngine: ObservableObject {
     @Published var remainingAttempts: Int
     @Published var leaves: [Leaf]
     @Published var lastRegenerationTime: Date
-    @Published var timeRemaining: Int = 20
+    
+    @Published var timeRemainingForTrivia: Int = 20
+    @Published var timeRemainingForNextPlay: Int = 0
     var answersCount = 0
-    private var timer: Timer?
-    static let shared = GameEngine()
+    private var timerTrivia: Timer?
+    private var countdown: Timer?
     
     //Var to check if player has played more than once for today
     var lastPlayedDate: Date? {
@@ -37,17 +34,18 @@ class GameEngine: ObservableObject {
         remainingAttempts = 3
         lastRegenerationTime = Date()
         leaves = [Leaf(show: true), Leaf(show: true), Leaf(show: true)]
-        
+        lastPlayedDate = nil
+
         UserDefaults.standard.set(plantSize, forKey: "plantSize")
         UserDefaults.standard.set(plantHealth, forKey: "plantHealth")
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
-        lastPlayedDate = nil
     }
     
     @objc func applicationWillEnterForeground() {
         startCountdown()
     }
+    
 
     func timeUntilNextPlayableMoment() -> Int {
         // If the user hasn't played before, they can play immediately.
@@ -70,7 +68,6 @@ class GameEngine: ObservableObject {
         correctAnswersCount = 0
         remainingAttempts = 3
         answersCount = 0
-        timeRemaining = 20
         
         // Set the last played date to today
         lastPlayedDate = Date()
@@ -93,27 +90,47 @@ class GameEngine: ObservableObject {
         return !Calendar.current.isDateInToday(lastPlayedDate!)
     }
 
+    func startTimer() {
+        // Invalidate any previous timer
+        timerTrivia?.invalidate()
+        
+        timerTrivia = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            if self.timeRemainingForTrivia > 0 {
+                self.timeRemainingForTrivia -= 1
+            } else {
+                self.timerTrivia?.invalidate()
+                // Logic to be executed when timer reaches 0, if any
+            }
+        }
+    }
+
     func startCountdown() {
         // Invalidate any previous timer
-        timer?.invalidate()
+        countdown?.invalidate()
         
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+        // Start a new timer that ticks every second
+        countdown = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self = self else { return }
-            self.timeRemaining -= 1
-            if self.timeRemaining <= 0 {
-                self.timer?.invalidate()
+            let timeUntilPlayable = self.timeUntilNextPlayableMoment()
+            
+            if timeUntilPlayable > 0 {
+                self.timeRemainingForNextPlay = timeUntilPlayable - 1
+            } else {
+                self.countdown?.invalidate()
+                self.timeRemainingForNextPlay = 0
             }
         }
     }
 
     func stopTimer() {
-        timer?.invalidate()
+        timerTrivia?.invalidate()
     }
 
     func resetTimer() {
-        timeRemaining = 20 // Reset to the initial value
+        timeRemainingForTrivia = 20 // Reset to the initial value
     }
-    
+
     func stopAndReset() {
         stopTimer()
         resetTimer()
@@ -132,12 +149,12 @@ class GameEngine: ObservableObject {
             correctAnswersCount += 1
         } else {
             remainingAttempts -= 1
+            loseLeaf()
             if remainingAttempts < 0 {
                 // Handle game over logic here
                 resetPlant()
                 return
             }
-            loseLeaf()
         }
 
         // Continue with your existing logic for correct answers and checking for game completion

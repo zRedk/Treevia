@@ -1,9 +1,4 @@
-//
 //  AnswerRow.swift
-//  MyLittleTree
-//
-//  Created by Federica Mosca on 18/10/23.
-//
 
 import SwiftUI
 

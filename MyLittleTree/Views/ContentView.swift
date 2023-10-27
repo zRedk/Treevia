@@ -1,9 +1,4 @@
-//
 //  ContentView.swift
-//  MyLittleTree
-//
-//  Created by Emanuele Di Pietro on 17/10/23.
-//
 
 import SwiftUI
 import Combine
@@ -33,7 +28,6 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                
                 Color.accentColor
                     .ignoresSafeArea()
                 
@@ -47,7 +41,6 @@ struct ContentView: View {
                         .aspectRatio(contentMode:.fit)
                         .frame(width: 200)
                         .padding(.bottom, 20.0)
-                    //here to the button we need to add the function showmodal, and create a call to action to the next page (i.e. the trivia page)
                     Button("Water your plant!") {
                         if gameData.canPlayToday() {
                             // If the user can play today, then present the trivia view.
@@ -65,7 +58,6 @@ struct ContentView: View {
                     .fullScreenCover(isPresented: self.$show_modal) {
                         TriviaView()
                     }
-                    
                 }
                 .padding(.bottom, 50.0)
             }
@@ -76,6 +68,9 @@ struct ContentView: View {
             Alert(title: Text("Wait a Moment!"),
                   message: Text("You've already played today. Please wait for the next watering time."),
                   dismissButton: .default(Text("Got it!")))
+        }
+        .onAppear {
+            gameData.startCountdown() // Start the countdown
         }
     }
 }

@@ -1,23 +1,25 @@
-//
-//  SwiftUIView.swift
-//  MyLittleTree
-//
-//  Created by Emanuele Di Pietro on 23/10/23.
-//
+//  CountDown.swift
 
 import SwiftUI
+import Combine  // Import Combine for Publishers and Subscribers
 
 struct CountDown: View {
     @EnvironmentObject var gameData: GameEngine
     
+    // Create a publisher that emits an output every second
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    // A state variable to trigger the view update
+    @State private var lastUpdate = Date()
+    
     var body: some View {
-        let timeRemaining = gameData.timeUntilNextPlayableMoment()
-        let hours = timeRemaining / 3600
-        let minutes = (timeRemaining % 3600) / 60
-        let seconds = timeRemaining % 60
+        let timeUntilNextPlayableMoment = gameData.timeUntilNextPlayableMoment()
+        let hours = timeUntilNextPlayableMoment / 3600
+        let minutes = (timeUntilNextPlayableMoment % 3600) / 60
+        let seconds = timeUntilNextPlayableMoment % 60
         
         return Group {
-            if timeRemaining > 0 {
+            if timeUntilNextPlayableMoment > 0 {
                 HStack(spacing: 5) {
                     Image(systemName: "drop.fill")
                     Text(String(format: "%02d:%02d:%02d", hours, minutes, seconds)).bold()
@@ -29,6 +31,10 @@ struct CountDown: View {
                     Text("Learn more about plants!").bold()
                 }
             }
+        }
+        .onReceive(timer) { _ in
+            // Update the state variable every second to trigger a view update
+            self.lastUpdate = Date()
         }
     }
 }
