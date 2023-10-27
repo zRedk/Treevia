@@ -38,7 +38,6 @@ struct TriviaView: View {
 
     var body: some View {
         NavigationStack {
-            
             VStack{
                 HStack{
                     Text("\(gameStage) of 5").foregroundStyle(Color.heavyGreen)

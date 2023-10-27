@@ -17,7 +17,14 @@ class GameEngine: ObservableObject {
     
     var lastRegenerationTime: Date {
         get {
-            UserDefaults.standard.object(forKey: "lastRegenerationTime") as? Date ?? Date()
+            if let storedDate = UserDefaults.standard.object(forKey: "lastRegenerationTime") as? Date {
+                return storedDate
+            }
+            
+            // If it's the first time the app is running, set the time.
+            let firstLaunchDate = Date()
+            UserDefaults.standard.set(firstLaunchDate, forKey: "lastRegenerationTime")
+            return firstLaunchDate
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "lastRegenerationTime")
@@ -32,6 +39,13 @@ class GameEngine: ObservableObject {
         set {
             UserDefaults.standard.set(newValue, forKey: "lastPlayedDate")
         }
+    }
+    
+    var daysSinceLastRegeneration: Int {
+        let now = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: lastRegenerationTime, to: now)
+        return components.day ?? 0
     }
     
     init() {
@@ -199,7 +213,6 @@ class GameEngine: ObservableObject {
     func savePlantData() {
         UserDefaults.standard.set(plantSize, forKey: "plantSize")
         UserDefaults.standard.set(plantHealth, forKey: "plantHealth")
-        UserDefaults.standard.set(lastRegenerationTime, forKey: "lastRegenerationTime")
         print(plantSize, plantHealth)
     }
     

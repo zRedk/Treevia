@@ -18,6 +18,7 @@
 		E70BCA462AE2BE880022F530 /* HoorayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BCA452AE2BE880022F530 /* HoorayView.swift */; };
 		E70BCA482AE2BEBF0022F530 /* OopsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BCA472AE2BEBF0022F530 /* OopsView.swift */; };
 		EC1747EA2AE9589C001086C6 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1747E92AE9589C001086C6 /* GameEngine.swift */; };
+		ECC0D7722AEC39AF005F74E4 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC0D7712AEC39AF005F74E4 /* DetailsView.swift */; };
 		ECD17A6F2AE2B7D30034527B /* TriviaAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD17A6E2AE2B7D30034527B /* TriviaAnswer.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		E70BCA452AE2BE880022F530 /* HoorayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoorayView.swift; sourceTree = "<group>"; };
 		E70BCA472AE2BEBF0022F530 /* OopsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OopsView.swift; sourceTree = "<group>"; };
 		EC1747E92AE9589C001086C6 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
+		ECC0D7712AEC39AF005F74E4 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		ECD17A6E2AE2B7D30034527B /* TriviaAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaAnswer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -55,6 +57,7 @@
 				E70BCA452AE2BE880022F530 /* HoorayView.swift */,
 				C05E81A72ADF0EF0008EC0F4 /* TriviaView.swift */,
 				C00092AE2ADED00800340A86 /* ContentView.swift */,
+				ECC0D7712AEC39AF005F74E4 /* DetailsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				C05E81A82ADF0EF0008EC0F4 /* TriviaView.swift in Sources */,
 				8E4CBC552AE2F58F00C68274 /* DataModels.swift in Sources */,
 				EC1747EA2AE9589C001086C6 /* GameEngine.swift in Sources */,
+				ECC0D7722AEC39AF005F74E4 /* DetailsView.swift in Sources */,
 				ECD17A6F2AE2B7D30034527B /* TriviaAnswer.swift in Sources */,
 				C00092AD2ADED00800340A86 /* MyLittleTreeApp.swift in Sources */,
 				8E4CBC482AE059EB00C68274 /* AnswerRow.swift in Sources */,

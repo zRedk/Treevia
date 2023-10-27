@@ -5,7 +5,8 @@ import Combine
 
 struct ContentView: View {
     
-    @State private var show_modal: Bool = false
+    @State private var showTriviaModal: Bool = false
+    @State private var showDetailsModal: Bool = false
     @EnvironmentObject var gameData: GameEngine
     @State private var showAlert: Bool = false
 
@@ -36,15 +37,21 @@ struct ContentView: View {
                         CountDown()
                             .foregroundColor(.timeDropMW) //here timeDropMW is the color for the text with the tear drop
                     }
-                    Image(getPlantImage())
-                        .resizable()
-                        .aspectRatio(contentMode:.fit)
-                        .frame(width: 200)
-                        .padding(.bottom, 20.0)
+                    Button(action: {
+                        self.showDetailsModal = true
+                    }) {
+                        Image(getPlantImage())
+                            .resizable()
+                            .aspectRatio(contentMode:.fit)
+                            .frame(width: 200)
+                            .padding(.bottom, 20.0)
+                    }
+
+                    
                     Button("Water your plant!") {
                         if gameData.canPlayToday() {
                             // If the user can play today, then present the trivia view.
-                            self.show_modal = true
+                            self.showTriviaModal = true
                             gameData.startGame()
                         } else {
                             // If not, show the alert.
@@ -55,15 +62,21 @@ struct ContentView: View {
                     .background(.greenButton)
                     .foregroundColor(.white)
                     .cornerRadius(230)
-                    .fullScreenCover(isPresented: self.$show_modal) {
-                        TriviaView()
-                    }
                 }
                 .padding(.bottom, 50.0)
             }
             .navigationTitle("Treevia")
         }
         .environment(\.colorScheme, .dark)
+        
+        .fullScreenCover(isPresented: self.$showTriviaModal) {
+            TriviaView()
+        }
+        
+        .sheet(isPresented: self.$showDetailsModal, content: {
+            DetailsView()
+        })
+        
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Wait a Moment!"),
                   message: Text("You've already played today. Please wait for the next watering time."),
