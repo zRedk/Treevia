@@ -9,14 +9,21 @@ class GameEngine: ObservableObject {
     @Published var correctAnswersCount: Int
     @Published var remainingAttempts: Int
     @Published var leaves: [Leaf]
-    @Published var lastRegenerationTime: Date
-    
     @Published var timeRemainingForTrivia: Int = 20
     @Published var timeRemainingForNextPlay: Int = 0
     var answersCount = 0
     private var timerTrivia: Timer?
     private var countdown: Timer?
     
+    var lastRegenerationTime: Date {
+        get {
+            UserDefaults.standard.object(forKey: "lastRegenerationTime") as? Date ?? Date()
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "lastRegenerationTime")
+        }
+    }
+
     //Var to check if player has played more than once for today
     var lastPlayedDate: Date? {
         get {
@@ -28,17 +35,26 @@ class GameEngine: ObservableObject {
     }
     
     init() {
-        plantSize = 0
-        plantHealth = 100
+        plantSize = UserDefaults.standard.integer(forKey: "plantSize")
+        plantHealth = UserDefaults.standard.integer(forKey: "plantHealth")
         correctAnswersCount = 0
         remainingAttempts = 3
-        lastRegenerationTime = Date()
         leaves = [Leaf(show: true), Leaf(show: true), Leaf(show: true)]
-        lastPlayedDate = nil
-
-        UserDefaults.standard.set(plantSize, forKey: "plantSize")
-        UserDefaults.standard.set(plantHealth, forKey: "plantHealth")
         
+        if UserDefaults.standard.object(forKey: "plantSize") == nil {
+            plantSize = 0 // Set your default value here
+            UserDefaults.standard.set(plantSize, forKey: "plantSize")
+        } else {
+            plantSize = UserDefaults.standard.integer(forKey: "plantSize")
+        }
+
+        if UserDefaults.standard.object(forKey: "plantHealth") == nil {
+            plantHealth = 100 // Set your default value here
+            UserDefaults.standard.set(plantHealth, forKey: "plantHealth")
+        } else {
+            plantHealth = UserDefaults.standard.integer(forKey: "plantHealth")
+        }
+
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
@@ -183,6 +199,7 @@ class GameEngine: ObservableObject {
     func savePlantData() {
         UserDefaults.standard.set(plantSize, forKey: "plantSize")
         UserDefaults.standard.set(plantHealth, forKey: "plantHealth")
+        UserDefaults.standard.set(lastRegenerationTime, forKey: "lastRegenerationTime")
         print(plantSize, plantHealth)
     }
     
