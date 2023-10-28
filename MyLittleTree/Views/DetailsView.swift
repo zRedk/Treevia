@@ -55,6 +55,7 @@ struct DetailsView: View {
                 .scrollContentBackground(.hidden)
             }
         }
+        .environment(\.colorScheme, .light)
         .presentationDetents([.medium])
         .presentationDragIndicator(.visible)
     }

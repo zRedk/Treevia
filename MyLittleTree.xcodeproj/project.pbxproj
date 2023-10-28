@@ -15,9 +15,10 @@
 		C00092B42ADED00800340A86 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00092B32ADED00800340A86 /* Preview Assets.xcassets */; };
 		C03A0E332AE6BD8C006DE0B6 /* CountDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03A0E322AE6BD8C006DE0B6 /* CountDown.swift */; };
 		C05E81A82ADF0EF0008EC0F4 /* TriviaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05E81A72ADF0EF0008EC0F4 /* TriviaView.swift */; };
-		E70BCA462AE2BE880022F530 /* HoorayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BCA452AE2BE880022F530 /* HoorayView.swift */; };
-		E70BCA482AE2BEBF0022F530 /* OopsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BCA472AE2BEBF0022F530 /* OopsView.swift */; };
+		E70BCA462AE2BE880022F530 /* Hooray.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BCA452AE2BE880022F530 /* Hooray.swift */; };
+		E70BCA482AE2BEBF0022F530 /* Oops.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BCA472AE2BEBF0022F530 /* Oops.swift */; };
 		EC1747EA2AE9589C001086C6 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1747E92AE9589C001086C6 /* GameEngine.swift */; };
+		EC7ADA152AEC6D2500F9EB33 /* GameResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7ADA142AEC6D2500F9EB33 /* GameResultView.swift */; };
 		ECC0D7722AEC39AF005F74E4 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC0D7712AEC39AF005F74E4 /* DetailsView.swift */; };
 		ECD17A6F2AE2B7D30034527B /* TriviaAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD17A6E2AE2B7D30034527B /* TriviaAnswer.swift */; };
 /* End PBXBuildFile section */
@@ -32,9 +33,10 @@
 		C00092B32ADED00800340A86 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C03A0E322AE6BD8C006DE0B6 /* CountDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDown.swift; sourceTree = "<group>"; };
 		C05E81A72ADF0EF0008EC0F4 /* TriviaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaView.swift; sourceTree = "<group>"; };
-		E70BCA452AE2BE880022F530 /* HoorayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoorayView.swift; sourceTree = "<group>"; };
-		E70BCA472AE2BEBF0022F530 /* OopsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OopsView.swift; sourceTree = "<group>"; };
+		E70BCA452AE2BE880022F530 /* Hooray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hooray.swift; sourceTree = "<group>"; };
+		E70BCA472AE2BEBF0022F530 /* Oops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Oops.swift; sourceTree = "<group>"; };
 		EC1747E92AE9589C001086C6 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
+		EC7ADA142AEC6D2500F9EB33 /* GameResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResultView.swift; sourceTree = "<group>"; };
 		ECC0D7712AEC39AF005F74E4 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		ECD17A6E2AE2B7D30034527B /* TriviaAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaAnswer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -53,11 +55,10 @@
 		8E4CBC442AE058D900C68274 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E70BCA472AE2BEBF0022F530 /* OopsView.swift */,
-				E70BCA452AE2BE880022F530 /* HoorayView.swift */,
 				C05E81A72ADF0EF0008EC0F4 /* TriviaView.swift */,
 				C00092AE2ADED00800340A86 /* ContentView.swift */,
 				ECC0D7712AEC39AF005F74E4 /* DetailsView.swift */,
+				EC7ADA142AEC6D2500F9EB33 /* GameResultView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -67,6 +68,8 @@
 			children = (
 				C03A0E322AE6BD8C006DE0B6 /* CountDown.swift */,
 				8E4CBC472AE059EB00C68274 /* AnswerRow.swift */,
+				E70BCA472AE2BEBF0022F530 /* Oops.swift */,
+				E70BCA452AE2BE880022F530 /* Hooray.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -190,15 +193,16 @@
 			files = (
 				C00092AF2ADED00800340A86 /* ContentView.swift in Sources */,
 				C03A0E332AE6BD8C006DE0B6 /* CountDown.swift in Sources */,
-				E70BCA462AE2BE880022F530 /* HoorayView.swift in Sources */,
+				E70BCA462AE2BE880022F530 /* Hooray.swift in Sources */,
 				C05E81A82ADF0EF0008EC0F4 /* TriviaView.swift in Sources */,
 				8E4CBC552AE2F58F00C68274 /* DataModels.swift in Sources */,
+				EC7ADA152AEC6D2500F9EB33 /* GameResultView.swift in Sources */,
 				EC1747EA2AE9589C001086C6 /* GameEngine.swift in Sources */,
 				ECC0D7722AEC39AF005F74E4 /* DetailsView.swift in Sources */,
 				ECD17A6F2AE2B7D30034527B /* TriviaAnswer.swift in Sources */,
 				C00092AD2ADED00800340A86 /* MyLittleTreeApp.swift in Sources */,
 				8E4CBC482AE059EB00C68274 /* AnswerRow.swift in Sources */,
-				E70BCA482AE2BEBF0022F530 /* OopsView.swift in Sources */,
+				E70BCA482AE2BEBF0022F530 /* Oops.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

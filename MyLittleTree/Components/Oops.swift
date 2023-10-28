@@ -2,22 +2,22 @@
 
 import SwiftUI
 
-struct OopsView: View {
+struct Oops: View {
     var body: some View {
         ZStack {
             Color.accentColor
                 .ignoresSafeArea()
-            
-            VStack{
+            VStack {
                 Text("Oops!")
                     .bold()
-                    .font(.system(size: 60))
+                    .font(.system(size: 50))
+                    .padding(35)
                 Image("nowater")
                     .resizable()
-                    .aspectRatio(contentMode:.fit)
-                    .frame(width: 300)
-                    .padding(.bottom, 20.0)
+                    .aspectRatio(contentMode: .fit)
                     .padding()
+                    .frame(width: 250, height: 250)
+                    .shadow(radius: 10)
                 Text("Unfortunately your plant will not receive water today, try tomorrow!")
                     .bold()
                     .font(.system(size: 35))
@@ -31,5 +31,5 @@ struct OopsView: View {
 }
 
 #Preview {
-    OopsView()
+    Oops()
 }

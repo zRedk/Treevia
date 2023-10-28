@@ -12,29 +12,31 @@ struct TriviaView: View {
     @State private var showingAlert = false
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var gameData: GameEngine
-
+    
     func nextQuestion() {
         gameStage += 1
-
+        
         guard let nq = hcQuestions.popLast() else {
             currentQuestion = nil
             return
         }
-
+        
         if selectedAnswer == nil {
             gameData.regenerateLeavesIfNeeded()
         } else {
             selectedAnswer = nil
         }
-
+        
         currentQuestion = nq
-
+        
         if gameStage > 5 || gameData.allLeavesHidden() || gameData.remainingAttempts <= 0 {
-            self.dismiss()
+            
             gameData.stopAndReset()
+            // Set the last played date to today
+            gameData.lastPlayedDate = Date()
         }
     }
-
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -49,7 +51,7 @@ struct TriviaView: View {
                 }
                 .padding()
                 
-                if (gameData.gameState == true){
+                if (gameData.triviaActive == true){
                     VStack(spacing: 3) {
                         Text(String(format: "00:%02d", gameData.timeRemainingForTrivia))
                             .bold()
@@ -69,7 +71,7 @@ struct TriviaView: View {
                         Image("water-can")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 150)
+                            .frame(width: 100)
                     }
                     
                     VStack(alignment:.leading, spacing:8){
@@ -78,20 +80,17 @@ struct TriviaView: View {
                                 .foregroundStyle(.black)
                                 .padding([.leading, .trailing], 10)
                                 .bold()
+                            Spacer()
+                            
                             ForEach(question.Answers){ answer in
                                 AnswerRow(answer: answer, selectedAnswer: $selectedAnswer)
                                     .environmentObject(gameData)
                             }
                         }
-                        Spacer()
                     }
                     .padding()
                 } else {
-                    if(gameData.gameWin == true){
-                        HoorayView()
-                    } else {
-                        OopsView()
-                    }
+                    GameResultView()
                 }
                 
                 
@@ -112,7 +111,6 @@ struct TriviaView: View {
                     .background(Color.green)
                     .cornerRadius(20)
                     .padding([.leading, .trailing], 10)
-
                 }
             }
             .background(Color.accentColor)
@@ -145,8 +143,14 @@ struct TriviaView: View {
             gameData.startTimer() // Start the countdown
         }
         
+        .onChange(of: gameData.allLeavesHidden(), {
+            if (gameData.allLeavesHidden()){
+                gameData.triviaActive = false
+            }
+        })
+        
         .onChange(of: gameStage, {
-            if gameStage > 5 || gameData.leaves.filter({ $0.show }).count <= 0{
+            if gameStage > 5 || gameData.leaves.filter({ $0.show }).count <= 0 || gameData.triviaActive == false {
                 dismiss()
                 gameData.stopTimer()
                 gameData.startCountdown()

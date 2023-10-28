@@ -2,23 +2,21 @@
 
 import SwiftUI
 
-struct HoorayView: View {
+struct Hooray: View {
     var body: some View {
         ZStack{
             Color.accentColor
                 .ignoresSafeArea()
             VStack {
                 Text("Hooray!")
-                    .fontWeight(.bold)
-                    .font(.system(size: 60))
-                    .padding(40)
+                    .bold()
+                    .font(.system(size: 50))
+                    .padding(35)
                 Image("water-can")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 350)
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
                     .padding()
-                    .frame(width: 300, height: 300)
+                    .frame(width: 250, height: 250)
                     .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 Text("You received some water for your plant!")
                     .bold()
@@ -32,5 +30,5 @@ struct HoorayView: View {
 }
 
 #Preview {
-    HoorayView()
+    Hooray()
 }

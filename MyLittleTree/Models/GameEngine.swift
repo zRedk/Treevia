@@ -11,8 +11,8 @@ class GameEngine: ObservableObject {
     @Published var leaves: [Leaf]
     @Published var timeRemainingForTrivia: Int = 20
     @Published var timeRemainingForNextPlay: Int = 0
-    @Published var gameWin: Bool = false
-    @Published var gameState: Bool = false
+    @Published var win: Bool = false
+    @Published var triviaActive: Bool = false
 
     var answersCount = 0
     private var timerTrivia: Timer?
@@ -57,7 +57,7 @@ class GameEngine: ObservableObject {
         correctAnswersCount = 0
         remainingAttempts = 3
         leaves = [Leaf(show: true), Leaf(show: true), Leaf(show: true)]
-        
+        triviaActive = true
         if UserDefaults.standard.object(forKey: "plantSize") == nil {
             plantSize = 0 // Set your default value here
             UserDefaults.standard.set(plantSize, forKey: "plantSize")
@@ -101,17 +101,12 @@ class GameEngine: ObservableObject {
         correctAnswersCount = 0
         remainingAttempts = 3
         answersCount = 0
-        gameWin = false
-        gameState = true
-
-        // Set the last played date to today
-        lastPlayedDate = Date()
-
+        win = false
+        triviaActive = true
+        resetTimer()
+        
         // Reset leaves to their initial state
         leaves = [Leaf(show: true), Leaf(show: true), Leaf(show: true)]
-        
-        // Start the countdown
-        startCountdown()
     }
 
     // Check if the user can play today
@@ -186,7 +181,6 @@ class GameEngine: ObservableObject {
             remainingAttempts -= 1
             loseLeaf()
             if remainingAttempts < 0 {
-                // Handle game over logic here
                 resetPlant()
                 return
             }
@@ -194,8 +188,8 @@ class GameEngine: ObservableObject {
 
         // Continue with your existing logic for correct answers and checking for game completion
         if answersCount == 5 && remainingAttempts > 0 {
-            gameState = false
-            gameWin = true
+            triviaActive = false
+            win = true
             if plantHealth == 100 {
                 plantSize += 50
                 savePlantData()
@@ -204,8 +198,8 @@ class GameEngine: ObservableObject {
                 savePlantData()
             }
         } else if answersCount == 5 && remainingAttempts <= 0 {
-            gameState = false
-            gameWin = false
+            triviaActive = false
+            win = false
 
             plantHealth -= 50
             savePlantData()
@@ -223,7 +217,6 @@ class GameEngine: ObservableObject {
     func savePlantData() {
         UserDefaults.standard.set(plantSize, forKey: "plantSize")
         UserDefaults.standard.set(plantHealth, forKey: "plantHealth")
-        print(plantSize, plantHealth)
     }
     
     // Function to regenerate leaves if needed
