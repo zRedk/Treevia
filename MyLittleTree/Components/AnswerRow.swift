@@ -14,11 +14,11 @@ struct AnswerRow: View {
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .center)
-        .foregroundStyle(selectedAnswer == answer ? .white : (selectedAnswer == nil ? .white : .black))
-        .background(selectedAnswer == answer ? (answer.isCorrect ? .heavyGreen : .redWrong) : selectedAnswer == nil ? .greenButton : .gray)
+        .foregroundStyle(selectedAnswer == answer ? .white : (selectedAnswer == nil && gameData.timeRemainingForTrivia != 0 ? .white : .black))
+        .background(selectedAnswer == answer ? (answer.isCorrect ? .heavyGreen : .redWrong) : selectedAnswer == nil  && gameData.timeRemainingForTrivia != 0 ? .greenButton : .gray)
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .onTapGesture {
-            if selectedAnswer == nil {
+            if selectedAnswer == nil && gameData.timeRemainingForTrivia != 0 {
                 selectedAnswer = answer
                 gameData.answerQuestion(isCorrect: answer.isCorrect)
                 gameData.stopTimer()

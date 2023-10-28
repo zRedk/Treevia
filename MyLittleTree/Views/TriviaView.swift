@@ -104,6 +104,40 @@ struct TriviaView: View {
                     .background(Color.green)
                     .cornerRadius(20)
                     .padding([.leading, .trailing], 10)
+                } else {
+                    HStack{
+                        Button(action: {
+                            
+                        }){
+                            Image(systemName: "sun.horizon.fill")
+                            Text("Sunshine Ray")
+                                .bold()
+                                .frame(maxWidth: .infinity)
+                                .foregroundColor(.white)
+                        }
+                        .padding()
+                        .background(Color.yellow)
+                        .cornerRadius(20)
+                        .padding([.leading, .trailing], 10)
+                        .opacity(0.8)
+
+                        Button(action: {
+                            
+                        }){
+                            HStack {
+                                Image(systemName: "camera.macro")
+                                Text("Flower Bloom")
+                                .bold()
+                                .frame(maxWidth: .infinity)
+                                .foregroundColor(.white)
+                            }
+                        }
+                        .padding()
+                        .background(Color.pink)
+                        .cornerRadius(20)
+                        .padding([.leading, .trailing], 10)
+                        .opacity(0.8)
+                    }
                 }
             }
             .background(Color.accentColor)
@@ -133,7 +167,7 @@ struct TriviaView: View {
         }
         .onAppear {
             nextQuestion()
-            gameData.startTimer() // Start the countdown
+            gameData.startTimer()
         }
         
         .onChange(of: gameData.allLeavesHidden(), {
