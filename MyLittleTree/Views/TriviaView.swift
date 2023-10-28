@@ -28,14 +28,7 @@ struct TriviaView: View {
         }
         
         currentQuestion = nq
-        
-        if gameStage > 5 || gameData.allLeavesHidden() || gameData.remainingAttempts <= 0 {
-            
-            gameData.stopAndReset()
-            // Set the last played date to today
-            gameData.lastPlayedDate = Date()
         }
-    }
     
     var body: some View {
         NavigationStack {

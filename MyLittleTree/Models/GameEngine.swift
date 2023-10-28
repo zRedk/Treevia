@@ -18,6 +18,10 @@ class GameEngine: ObservableObject {
     private var timerTrivia: Timer?
     private var countdown: Timer?
     
+    var isPlantDead: Bool {
+        return plantHealth <= 0
+    }
+    
     var lastRegenerationTime: Date {
         get {
             if let storedDate = UserDefaults.standard.object(forKey: "lastRegenerationTime") as? Date {
@@ -180,10 +184,6 @@ class GameEngine: ObservableObject {
         } else {
             remainingAttempts -= 1
             loseLeaf()
-            if remainingAttempts < 0 {
-                resetPlant()
-                return
-            }
         }
 
         // Continue with your existing logic for correct answers and checking for game completion
@@ -197,15 +197,12 @@ class GameEngine: ObservableObject {
                 plantHealth += 50
                 savePlantData()
             }
-        } else if answersCount == 5 && remainingAttempts <= 0 {
+        } else if remainingAttempts == 0 {
             triviaActive = false
             win = false
 
             plantHealth -= 50
             savePlantData()
-            if plantHealth <= 0 {
-                resetPlant()
-            }
         }
     }
     

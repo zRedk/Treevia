@@ -63,5 +63,5 @@ struct DetailsView: View {
 
 #Preview {
     DetailsView()
-        .environmentObject(GameEngine()) // Provide a GameEngine instance here
+        .environmentObject(GameEngine()) 
 }

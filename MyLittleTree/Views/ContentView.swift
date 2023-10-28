@@ -16,6 +16,9 @@ struct ContentView: View {
     }
     
     func getPlantImage() -> String {
+        if gameData.plantHealth <= 0 {
+            return "DeadPlant"
+        }
         if  gameData.plantSize == 0 {
             return (gameData.plantHealth == 100) ? "Bud" : "SickBud"
         } else if gameData.plantSize == 50 {
@@ -34,33 +37,38 @@ struct ContentView: View {
                     .ignoresSafeArea()
                 
                 VStack{
-                    HStack{
-                        CountDown()
-                    }
-                    Button(action: {
-                        self.showDetailsModal = true
-                    }) {
-                        Image(getPlantImage())
-                            .resizable()
-                            .aspectRatio(contentMode:.fit)
-                            .frame(width: 200)
-                            .padding(.bottom, 20.0)
-                    }
                     
-                    Button("Water your plant!") {
-                        if gameData.canPlayToday() {
-                            // If the user can play today, then present the trivia view.
-                            self.showTriviaModal = true
-                            gameData.startGame()
-                        } else {
-                            // If not, show the alert.
-                            showAlert = true
+                    if gameData.isPlantDead {
+                        DeathPlant()
+                    } else {
+                        HStack{
+                            CountDown()
                         }
+                        Button(action: {
+                            self.showDetailsModal = true
+                        }) {
+                            Image(getPlantImage())
+                                .resizable()
+                                .aspectRatio(contentMode:.fit)
+                                .frame(width: 200)
+                                .padding(.bottom, 20.0)
+                        }
+                        
+                        Button("Water your plant!") {
+                            if gameData.canPlayToday() {
+                                // If the user can play today, then present the trivia view.
+                                self.showTriviaModal = true
+                                gameData.startGame()
+                                } else {
+                                    // If not, show the alert.
+                                    showAlert = true
+                                }
+                        }
+                        .padding(25.0)
+                        .background(.greenButton)
+                        .foregroundColor(.white)
+                        .cornerRadius(230)
                     }
-                    .padding(25.0)
-                    .background(.greenButton)
-                    .foregroundColor(.white)
-                    .cornerRadius(230)
                 }
                 .padding(.bottom, 50.0)
             }
@@ -74,7 +82,6 @@ struct ContentView: View {
         
         .sheet(isPresented: self.$showDetailsModal) {
             DetailsView()
-                .background(Color.red)
         }
         
         .alert(isPresented: $showAlert) {
