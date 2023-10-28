@@ -17,7 +17,7 @@ struct ContentView: View {
     
     func getPlantImage() -> String {
         if gameData.plantHealth <= 0 {
-            return "DeadPlant"
+            return "DeathPlant"
         }
         if  gameData.plantSize == 0 {
             return (gameData.plantHealth == 100) ? "Bud" : "SickBud"
@@ -59,10 +59,10 @@ struct ContentView: View {
                                 // If the user can play today, then present the trivia view.
                                 self.showTriviaModal = true
                                 gameData.startGame()
-                                } else {
-                                    // If not, show the alert.
-                                    showAlert = true
-                                }
+                            } else {
+                                // If not, show the alert.
+                                showAlert = true
+                            }
                         }
                         .padding(25.0)
                         .background(.greenButton)

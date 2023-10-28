@@ -197,12 +197,16 @@ class GameEngine: ObservableObject {
                 plantHealth += 50
                 savePlantData()
             }
+            lastPlayedDate = Date()  // Add this line
+
         } else if remainingAttempts == 0 {
             triviaActive = false
             win = false
 
             plantHealth -= 50
             savePlantData()
+            lastPlayedDate = Date()  // Add this line
+
         }
     }
     
