@@ -7,7 +7,6 @@ class GameEngine: ObservableObject {
     @Published var plantSize: Int
     @Published var plantHealth: Int
     @Published var correctAnswersCount: Int
-    @Published var remainingAttempts: Int
     @Published var leaves: [Leaf]
     @Published var timeRemainingForTrivia: Int = 20
     @Published var timeRemainingForNextPlay: Int = 0
@@ -59,7 +58,6 @@ class GameEngine: ObservableObject {
         plantSize = UserDefaults.standard.integer(forKey: "plantSize")
         plantHealth = UserDefaults.standard.integer(forKey: "plantHealth")
         correctAnswersCount = 0
-        remainingAttempts = 3
         leaves = [Leaf(show: true), Leaf(show: true), Leaf(show: true)]
         triviaActive = true
         if UserDefaults.standard.object(forKey: "plantSize") == nil {
@@ -103,7 +101,6 @@ class GameEngine: ObservableObject {
         plantSize = UserDefaults.standard.integer(forKey: "plantSize")
         plantHealth = UserDefaults.standard.integer(forKey: "plantHealth")
         correctAnswersCount = 0
-        remainingAttempts = 3
         answersCount = 0
         win = false
         triviaActive = true
@@ -182,12 +179,11 @@ class GameEngine: ObservableObject {
         if isCorrect {
             correctAnswersCount += 1
         } else {
-            remainingAttempts -= 1
             loseLeaf()
         }
 
         // Continue with your existing logic for correct answers and checking for game completion
-        if answersCount == 5 && remainingAttempts > 0 {
+        if answersCount == 5 && allLeavesHidden() != true {
             triviaActive = false
             win = true
             if plantHealth == 100 {
@@ -199,7 +195,7 @@ class GameEngine: ObservableObject {
             }
             lastPlayedDate = Date()  // Add this line
 
-        } else if remainingAttempts == 0 {
+        } else if allLeavesHidden() {
             triviaActive = false
             win = false
 
