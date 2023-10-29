@@ -11,9 +11,6 @@ struct ContentView: View {
     @State private var showAlert: Bool = false
     private let maxHeight: CGFloat = 100 // Maximum Modal height
     
-    init () {
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.init(Color.black)]
-    }
     
     func getPlantImage() -> String {
         if gameData.plantHealth <= 0 {
@@ -33,7 +30,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.accentColor
+                Color("backgroundColor")
                     .ignoresSafeArea()
                 
                 VStack{

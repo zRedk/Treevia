@@ -6,13 +6,18 @@ import UIKit
 class GameEngine: ObservableObject {
     @Published var plantSize: Int
     @Published var plantHealth: Int
+    @Published var sunRay: Int
+    @Published var flowerBloom: Int
     @Published var correctAnswersCount: Int
     @Published var leaves: [Leaf]
     @Published var timeRemainingForTrivia: Int = 20
     @Published var timeRemainingForNextPlay: Int = 0
     @Published var win: Bool = false
     @Published var triviaActive: Bool = false
+    @Published var currentQuestion: Question?
+    @Published var selectedAnswer: Answer? = nil
 
+    var questionNumber = 0
     var answersCount = 0
     private var timerTrivia: Timer?
     private var countdown: Timer?
@@ -57,9 +62,13 @@ class GameEngine: ObservableObject {
     init() {
         plantSize = UserDefaults.standard.integer(forKey: "plantSize")
         plantHealth = UserDefaults.standard.integer(forKey: "plantHealth")
+        sunRay = UserDefaults.standard.integer(forKey: "sunRay")
+        flowerBloom = UserDefaults.standard.integer(forKey: "flowerBloom")
+
         correctAnswersCount = 0
         leaves = [Leaf(show: true), Leaf(show: true), Leaf(show: true)]
         triviaActive = true
+
         if UserDefaults.standard.object(forKey: "plantSize") == nil {
             plantSize = 0 // Set your default value here
             UserDefaults.standard.set(plantSize, forKey: "plantSize")
@@ -73,6 +82,21 @@ class GameEngine: ObservableObject {
         } else {
             plantHealth = UserDefaults.standard.integer(forKey: "plantHealth")
         }
+        
+        if UserDefaults.standard.object(forKey: "sunRay") == nil {
+            sunRay = 1 // Set your default value here
+            UserDefaults.standard.set(sunRay, forKey: "sunRay")
+        } else {
+            sunRay = UserDefaults.standard.integer(forKey: "sunRay")
+        }
+        
+        if UserDefaults.standard.object(forKey: "flowerBloom") == nil {
+            flowerBloom = 1 // Set your default value here
+            UserDefaults.standard.set(flowerBloom, forKey: "flowerBloom")
+        } else {
+            sunRay = UserDefaults.standard.integer(forKey: "flowerBloom")
+        }
+
 
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
@@ -81,7 +105,6 @@ class GameEngine: ObservableObject {
         startCountdown()
     }
     
-
     func timeUntilNextPlayableMoment() -> Int {
         // If the user hasn't played before, they can play immediately.
         if lastPlayedDate == nil {
@@ -102,6 +125,7 @@ class GameEngine: ObservableObject {
         plantHealth = UserDefaults.standard.integer(forKey: "plantHealth")
         correctAnswersCount = 0
         answersCount = 0
+        questionNumber = 0
         win = false
         triviaActive = true
         resetTimer()
@@ -182,6 +206,10 @@ class GameEngine: ObservableObject {
             loseLeaf()
         }
 
+        if(correctAnswersCount == 5 ){
+            awardRandomReward()
+        }
+        
         // Continue with your existing logic for correct answers and checking for game completion
         if answersCount == 5 && allLeavesHidden() != true {
             triviaActive = false
@@ -206,6 +234,52 @@ class GameEngine: ObservableObject {
         }
     }
     
+    func nextQuestion() {
+        questionNumber += 1
+        
+        guard let nq = hcQuestions.popLast() else {
+            currentQuestion = nil
+            return
+        }
+        
+        if selectedAnswer == nil {
+            regenerateLeavesIfNeeded()
+        } else {
+            selectedAnswer = nil
+        }
+        
+        currentQuestion = nq
+    }
+    
+    func awardRandomReward() {
+        let reward = Int.random(in: 0...1) // Random number between 0 and 1
+        if reward == 0 {
+            sunRay += 1
+            UserDefaults.standard.set(sunRay, forKey: "sunRay")
+        } else {
+            flowerBloom += 1
+            UserDefaults.standard.set(flowerBloom, forKey: "flowerBloom")
+        }
+    }
+    
+    func useSunshineRay() {
+        // Ensure player has at least one Sunshine Ray before using
+        guard sunRay > 0 else { return }
+        timeRemainingForTrivia += 5
+        sunRay -= 1
+        UserDefaults.standard.set(sunRay, forKey: "sunRay")
+    }
+
+    func useFlowerBloom() {
+        if flowerBloom > 0 && leaves.lastIndex(where: { !$0.show }) != nil {
+            flowerBloom -= 1
+            if let firstHiddenLeafIndex = leaves.lastIndex(where: { !$0.show }) {
+                leaves[firstHiddenLeafIndex].show = true
+            }
+            UserDefaults.standard.set(flowerBloom, forKey: "flowerBloom")
+        }
+    }
+
     func resetPlant() {
         plantSize = 0
         plantHealth = 100

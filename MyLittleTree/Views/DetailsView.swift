@@ -12,7 +12,7 @@ struct DetailsView: View {
     
     var body: some View {
         ZStack {
-            Color.accentColor // Background color for the entire DetailsView
+            Color("backgroundColor")
                 .ignoresSafeArea()
 
             VStack {
@@ -34,23 +34,23 @@ struct DetailsView: View {
                             Text("\(gameData.plantHealth)%")
                         }
                     }
-                    .listRowBackground(Color.accentColor)
+                    .listRowBackground(Color("backgroundColor"))
                     Section(header: Text("Rewards").bold()) {
                         HStack{
                             Image(systemName: "sun.horizon.fill")
                                 .foregroundStyle(.yellow)
                             Text("Sunshine Ray:")
                             Spacer()
-                            Text("3")
+                            Text("\(gameData.sunRay)")
                         }
                         HStack{
                             Image(systemName: "camera.macro")
                                 .foregroundStyle(.pink)
                             Text("Flower Blossom:")
                             Spacer()
-                            Text("2")
+                            Text("\(gameData.flowerBloom)")
                         }
-                    }.listRowBackground(Color.accentColor)
+                    }.listRowBackground(Color("backgroundColor"))
                 }
                 .scrollContentBackground(.hidden)
             }

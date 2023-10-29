@@ -4,44 +4,24 @@ import SwiftUI
 import Combine
 
 struct TriviaView: View {
-    @State var gameStage: Int = 0
-    
-    @State private var selectedAnswer: Answer? = nil
-    @State var currentQuestion: Question?
+    @State private var showingRewardAlert = false
     @State private var timeIsUp = false
     @State private var showingAlert = false
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var gameData: GameEngine
-    
-    func nextQuestion() {
-        gameStage += 1
-        
-        guard let nq = hcQuestions.popLast() else {
-            currentQuestion = nil
-            return
-        }
-        
-        if selectedAnswer == nil {
-            gameData.regenerateLeavesIfNeeded()
-        } else {
-            selectedAnswer = nil
-        }
-        
-        currentQuestion = nq
-        }
-    
+
     var body: some View {
         NavigationStack {
             VStack{
                 HStack{
-                    Text("\(gameStage) of 5").foregroundStyle(Color.heavyGreen)
+                    Text("\(gameData.questionNumber) of 5")
                     
                     Spacer()
                     ForEach(gameData.leaves) { leaf in
                         Image(systemName: leaf.show ? "leaf.fill" : "leaf")
-                            .foregroundColor(.greenButton)
                     }
                 }
+                .foregroundStyle(Color.heavyGreen)
                 .padding()
                 
                 if (gameData.triviaActive == true){
@@ -68,7 +48,7 @@ struct TriviaView: View {
                     }
                     
                     VStack(alignment:.leading, spacing:8){
-                        if let question = currentQuestion {
+                        if let question = gameData.currentQuestion{
                             Text(question.text)
                                 .foregroundStyle(.black)
                                 .padding([.leading, .trailing], 10)
@@ -76,7 +56,7 @@ struct TriviaView: View {
                             Spacer()
                             
                             ForEach(question.Answers){ answer in
-                                AnswerRow(answer: answer, selectedAnswer: $selectedAnswer)
+                                AnswerRow(answer: answer)
                                     .environmentObject(gameData)
                             }
                         }
@@ -89,9 +69,9 @@ struct TriviaView: View {
                 
                 Spacer()
                 
-                if selectedAnswer != nil || gameData.timeRemainingForTrivia<=0 {
+                if gameData.selectedAnswer != nil || gameData.timeRemainingForTrivia<=0 {
                     Button(action: {
-                        nextQuestion()
+                        gameData.nextQuestion()
                         gameData.resetTimer()
                         gameData.startTimer()
                     }){
@@ -107,9 +87,10 @@ struct TriviaView: View {
                 } else {
                     HStack{
                         Button(action: {
-                            
+                            gameData.useSunshineRay()
                         }){
                             Image(systemName: "sun.horizon.fill")
+                                .foregroundColor(.white)
                             Text("Sunshine Ray")
                                 .bold()
                                 .frame(maxWidth: .infinity)
@@ -122,14 +103,15 @@ struct TriviaView: View {
                         .opacity(0.8)
 
                         Button(action: {
-                            
+                            gameData.useFlowerBloom()
                         }){
                             HStack {
                                 Image(systemName: "camera.macro")
+                                    .foregroundColor(.white)
                                 Text("Flower Bloom")
-                                .bold()
-                                .frame(maxWidth: .infinity)
-                                .foregroundColor(.white)
+                                    .bold()
+                                    .frame(maxWidth: .infinity)
+                                    .foregroundColor(.white)
                             }
                         }
                         .padding()
@@ -140,7 +122,7 @@ struct TriviaView: View {
                     }
                 }
             }
-            .background(Color.accentColor)
+            .background(Color("backgroundColor"))
             .toolbar {
                 ToolbarItem(placement: .destructiveAction, content: {
                     Button(action: {
@@ -165,8 +147,22 @@ struct TriviaView: View {
                 })
             }
         }
+        .alert(isPresented: $showingRewardAlert) {
+            if gameData.sunRay > UserDefaults.standard.integer(forKey: "sunRay") {
+                return Alert(title: Text("Congratulations!"), message: Text("You've earned a Sunshine Ray!"), dismissButton: .default(Text("OK")))
+            } else {
+                return Alert(title: Text("Congratulations!"), message: Text("You've earned a Flower Bloom!"), dismissButton: .default(Text("OK")))
+            }
+        }
+        
+        .onChange(of: gameData.triviaActive, {
+            if gameData.correctAnswersCount == 5 {
+                self.showingRewardAlert = true
+            }
+        })
+
         .onAppear {
-            nextQuestion()
+            gameData.nextQuestion()
             gameData.startTimer()
         }
         
@@ -176,8 +172,8 @@ struct TriviaView: View {
             }
         })
         
-        .onChange(of: gameStage, {
-            if gameStage > 5 || gameData.leaves.filter({ $0.show }).count <= 0 || gameData.triviaActive == false {
+        .onChange(of: gameData.questionNumber, {
+            if gameData.questionNumber > 5 || gameData.leaves.filter({ $0.show }).count <= 0 || gameData.triviaActive == false {
                 dismiss()
                 gameData.stopTimer()
                 gameData.startCountdown()

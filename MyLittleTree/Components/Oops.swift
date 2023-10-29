@@ -5,7 +5,7 @@ import SwiftUI
 struct Oops: View {
     var body: some View {
         ZStack {
-            Color.accentColor
+            Color("backgroundColor")
                 .ignoresSafeArea()
             VStack {
                 Text("Oops!")

@@ -5,7 +5,7 @@ import SwiftUI
 struct Hooray: View {
     var body: some View {
         ZStack{
-            Color.accentColor
+            Color("backgroundColor")
                 .ignoresSafeArea()
             VStack {
                 Text("Hooray!")
