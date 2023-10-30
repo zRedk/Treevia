@@ -2,6 +2,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class GameEngine: ObservableObject {
     @Published var plantSize: Int
@@ -21,7 +22,8 @@ class GameEngine: ObservableObject {
     var answersCount = 0
     private var timerTrivia: Timer?
     private var countdown: Timer?
-    
+    var audioPlayer: AVAudioPlayer?
+
     var isPlantDead: Bool {
         return plantHealth <= 0
     }
@@ -103,6 +105,19 @@ class GameEngine: ObservableObject {
     
     @objc func applicationWillEnterForeground() {
         startCountdown()
+    }
+    
+    func playSound(named soundName: String) {
+        if let path = Bundle.main.path(forResource: soundName, ofType: nil) {
+            let url = URL(fileURLWithPath: path)
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.play()
+            } catch {
+                // Handle the error if needed
+                print("Couldn't load the audio file")
+            }
+        }
     }
     
     func timeUntilNextPlayableMoment() -> Int {
@@ -202,14 +217,12 @@ class GameEngine: ObservableObject {
         answersCount += 1
         if isCorrect {
             correctAnswersCount += 1
+            playSound(named: "correctAnswerSound.mp3")  // Play correct answer sound
         } else {
             loseLeaf()
+            playSound(named: "wrongAnswerSound.mp3")  // Play wrong answer sound
         }
 
-        if(correctAnswersCount == 5 ){
-            awardRandomReward()
-        }
-        
         // Continue with your existing logic for correct answers and checking for game completion
         if answersCount == 5 && allLeavesHidden() != true {
             triviaActive = false
@@ -221,7 +234,7 @@ class GameEngine: ObservableObject {
                 plantHealth += 50
                 savePlantData()
             }
-            lastPlayedDate = Date()  // Add this line
+            lastPlayedDate = Date()
 
         } else if allLeavesHidden() {
             triviaActive = false
@@ -229,7 +242,7 @@ class GameEngine: ObservableObject {
 
             plantHealth -= 50
             savePlantData()
-            lastPlayedDate = Date()  // Add this line
+            lastPlayedDate = Date()
 
         }
     }

@@ -18,6 +18,8 @@
 		E70BCA462AE2BE880022F530 /* Hooray.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BCA452AE2BE880022F530 /* Hooray.swift */; };
 		E70BCA482AE2BEBF0022F530 /* Oops.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BCA472AE2BEBF0022F530 /* Oops.swift */; };
 		EC1747EA2AE9589C001086C6 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1747E92AE9589C001086C6 /* GameEngine.swift */; };
+		EC50A65C2AF063E0005D5E7C /* wrongAnswerSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EC50A65A2AF063E0005D5E7C /* wrongAnswerSound.mp3 */; };
+		EC50A65D2AF063E0005D5E7C /* correctAnswerSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EC50A65B2AF063E0005D5E7C /* correctAnswerSound.mp3 */; };
 		EC7ADA152AEC6D2500F9EB33 /* GameResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7ADA142AEC6D2500F9EB33 /* GameResultView.swift */; };
 		EC7ADA172AED29A100F9EB33 /* DeathPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7ADA162AED29A100F9EB33 /* DeathPlant.swift */; };
 		ECC0D7722AEC39AF005F74E4 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC0D7712AEC39AF005F74E4 /* DetailsView.swift */; };
@@ -37,6 +39,8 @@
 		E70BCA452AE2BE880022F530 /* Hooray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hooray.swift; sourceTree = "<group>"; };
 		E70BCA472AE2BEBF0022F530 /* Oops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Oops.swift; sourceTree = "<group>"; };
 		EC1747E92AE9589C001086C6 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
+		EC50A65A2AF063E0005D5E7C /* wrongAnswerSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = wrongAnswerSound.mp3; path = ../../../Music/GarageBand/wrongAnswerSound.mp3; sourceTree = "<group>"; };
+		EC50A65B2AF063E0005D5E7C /* correctAnswerSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = correctAnswerSound.mp3; path = ../../../Music/GarageBand/correctAnswerSound.mp3; sourceTree = "<group>"; };
 		EC7ADA142AEC6D2500F9EB33 /* GameResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResultView.swift; sourceTree = "<group>"; };
 		EC7ADA162AED29A100F9EB33 /* DeathPlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeathPlant.swift; sourceTree = "<group>"; };
 		ECC0D7712AEC39AF005F74E4 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 		C00092AB2ADED00800340A86 /* MyLittleTree */ = {
 			isa = PBXGroup;
 			children = (
+				EC50A65B2AF063E0005D5E7C /* correctAnswerSound.mp3 */,
+				EC50A65A2AF063E0005D5E7C /* wrongAnswerSound.mp3 */,
 				C00092AC2ADED00800340A86 /* MyLittleTreeApp.swift */,
 				8E4CBC4B2AE0771100C68274 /* Models */,
 				8E4CBC462AE059D500C68274 /* Components */,
@@ -184,6 +190,8 @@
 			files = (
 				C00092B42ADED00800340A86 /* Preview Assets.xcassets in Resources */,
 				C00092B12ADED00800340A86 /* Assets.xcassets in Resources */,
+				EC50A65C2AF063E0005D5E7C /* wrongAnswerSound.mp3 in Resources */,
+				EC50A65D2AF063E0005D5E7C /* correctAnswerSound.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
