@@ -35,7 +35,7 @@ struct DetailsView: View {
                         }
                     }
                     .listRowBackground(Color("backgroundColor"))
-                    Section(header: Text("Rewards").bold()) {
+                    Section(header: Text("Power-Ups").bold()) {
                         HStack{
                             Image(systemName: "sun.horizon.fill")
                                 .foregroundStyle(.yellow)
