@@ -39,14 +39,14 @@ struct DetailsView: View {
                         HStack{
                             Image(systemName: "sun.horizon.fill")
                                 .foregroundStyle(.yellow)
-                            Text("Sunshine Ray:")
+                            Text("Sunshine:")
                             Spacer()
                             Text("\(gameData.sunRay)")
                         }
                         HStack{
                             Image(systemName: "camera.macro")
                                 .foregroundStyle(.pink)
-                            Text("Flower Blossom:")
+                            Text("Blossom:")
                             Spacer()
                             Text("\(gameData.flowerBloom)")
                         }

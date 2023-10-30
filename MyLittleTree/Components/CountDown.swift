@@ -30,7 +30,7 @@ struct CountDown: View {
             } else {
                 HStack(spacing: 5) {
                     Image(systemName: "tree.fill")
-                    Text("Learn more about plants!").bold()
+                    Text("Learn more about biology!").bold()
                 }
                 .foregroundColor(.timeDropMW)
             }

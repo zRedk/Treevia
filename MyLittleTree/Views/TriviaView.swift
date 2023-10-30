@@ -91,7 +91,7 @@ struct TriviaView: View {
                         }){
                             Image(systemName: "sun.horizon.fill")
                                 .foregroundColor(.white)
-                            Text("Sunshine Ray")
+                            Text("Sunshine")
                                 .bold()
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(.white)
@@ -108,7 +108,7 @@ struct TriviaView: View {
                             HStack {
                                 Image(systemName: "camera.macro")
                                     .foregroundColor(.white)
-                                Text("Flower Bloom")
+                                Text("Blossom")
                                     .bold()
                                     .frame(maxWidth: .infinity)
                                     .foregroundColor(.white)
