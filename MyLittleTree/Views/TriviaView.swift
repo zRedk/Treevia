@@ -9,6 +9,9 @@ struct TriviaView: View {
     @State private var showingAlert = false
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var gameData: GameEngine
+    @State private var showFirstImage: Bool = true
+    
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
         NavigationStack {
@@ -41,6 +44,20 @@ struct TriviaView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 100)
+                        ZStack {
+                            Image(showFirstImage ? "rainFrame1" : "rainFrame2")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50, height: 50) // Adjust size as required
+                                .onReceive(timer) { _ in
+                                    withAnimation(.easeInOut(duration: 0.2)) {
+                                        showFirstImage.toggle()
+                                    }
+                                }
+                        }
+                        .onDisappear {
+                            timer.upstream.connect().cancel()
+                        }
                         Image("water-can")
                             .resizable()
                             .scaledToFit()
