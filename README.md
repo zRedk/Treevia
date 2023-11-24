@@ -12,5 +12,6 @@ With Treevia, learning biology becomes an interactive experience where nurturing
 
 ## License
 
-This project is licensed under the [MIT License]([link-to-license](https://github.com/zRedk/Treevia/blob/main/LICENSE)https://github.com/zRedk/Treevia/blob/main/LICENSE)
-![Treevia poster](poster_.png)
+This project is licensed under the [MIT License](LICENSE)
+
+
