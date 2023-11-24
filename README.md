@@ -9,3 +9,7 @@ With Treevia, learning biology becomes an interactive experience where nurturing
 - **Daily Challenges:** Test your biological knowledge with stimulating quiz questions. Each victory ensures your plant receives water for growth.
 - **Plant Health Monitoring:** Track your plant's health and growth through interactive visuals.
 - **Compete and Share:** Challenge friends, compare plant growth, and showcase your biological expertise.
+
+## License
+
+This project is licensed under the [MIT License]([link-to-license](https://github.com/zRedk/Treevia/blob/main/LICENSE)https://github.com/zRedk/Treevia/blob/main/LICENSE)
